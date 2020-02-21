@@ -22,10 +22,10 @@ class FormatSelectionScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ButtonTheme(
-            height: 200.0,
+          Expanded(
+            flex: 1,
             child: FlatButton(
-              color: Colors.blueAccent,
+              color: Colors.redAccent,
               onPressed: () {
                 globalStates.setFormat("Standard40");
                 Navigator.pushNamed(context, '/second');
@@ -40,8 +40,8 @@ class FormatSelectionScreen extends StatelessWidget {
               ),
             ),
           ),
-          ButtonTheme(
-            height: 200.0,
+          Expanded(
+            flex: 1,
             child: FlatButton(
               color: Colors.blueAccent,
               onPressed: () {
@@ -58,10 +58,10 @@ class FormatSelectionScreen extends StatelessWidget {
               ),
             ),
           ),
-          ButtonTheme(
-            height: 200.0,
+          Expanded(
+            flex: 1,
             child: FlatButton(
-              color: Colors.blueAccent,
+              color: Colors.greenAccent,
               onPressed: () {
                 globalStates.setFormat("Commander");
                 Navigator.pushNamed(context, '/second');
