@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import 'dart:convert';
 
 import 'mana_icon.dart';
@@ -21,7 +18,7 @@ class CodeState extends ChangeNotifier {
   }
 
   void getIdentities() async {
-    String body = await rootBundle.loadString('assets/docs/identities.txt');
+    String body = await rootBundle.loadString('assets/docs/identities_standard.txt');
     LineSplitter ls = new LineSplitter();
     _identities = ls.convert(body);
     //_identities = body.split('\\n').map((String text) => Text(text)).toList();
