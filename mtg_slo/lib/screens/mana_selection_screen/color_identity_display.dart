@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'code_state.dart';
+import 'package:mtg_slo/global_states.dart';
 
 class ColorIdentityDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final codeState = Provider.of<CodeState>(context);
+    final globalStates = Provider.of<GlobalStates>(context);
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Column(
@@ -17,11 +17,11 @@ class ColorIdentityDisplay extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             //crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: codeState.setDisplays(),
+            children: globalStates.setDisplays(),
           ),
           RichText(
             text: TextSpan(
-              text: codeState.getIdentity,
+              text: globalStates.getIdentity,
               style: TextStyle(
                   fontFamily: 'Magic', color: Colors.black, fontSize: 25.0, fontWeight: FontWeight.bold
               )

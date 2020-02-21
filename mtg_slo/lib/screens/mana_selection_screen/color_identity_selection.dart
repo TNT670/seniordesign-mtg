@@ -13,7 +13,7 @@ class ColorIdentitySelection extends StatelessWidget {
             alignment: FractionalOffset(0.5, 0.05),
             child: SizedBox.fromSize(
               size: Size(125.0, 125.0),
-              child: ManaIcon('assets/icons/W.svg'),
+              child: ManaIcon('assets/icons/W.svg', 'White'),
             )
           )
         ),
@@ -22,7 +22,7 @@ class ColorIdentitySelection extends StatelessWidget {
                 alignment: FractionalOffset(0.05, 0.4),
                 child: SizedBox.fromSize(
                   size: Size(125.0, 125.0),
-                  child: ManaIcon('assets/icons/G.svg'),
+                  child: ManaIcon('assets/icons/G.svg', 'Green'),
                 )
             )
         ),
@@ -31,7 +31,7 @@ class ColorIdentitySelection extends StatelessWidget {
                 alignment: FractionalOffset(0.95, 0.4),
                 child: SizedBox.fromSize(
                   size: Size(125.0, 125.0),
-                  child: ManaIcon('assets/icons/B.svg', ),
+                  child: ManaIcon('assets/icons/B.svg', 'Black'),
                 )
             )
         ),
@@ -40,7 +40,7 @@ class ColorIdentitySelection extends StatelessWidget {
                 alignment: FractionalOffset(0.225, 0.9),
                 child: SizedBox.fromSize(
                   size: Size(125.0, 125.0),
-                  child: ManaIcon('assets/icons/R.svg'),
+                  child: ManaIcon('assets/icons/R.svg', 'Red'),
                 )
             )
         ),
@@ -49,7 +49,7 @@ class ColorIdentitySelection extends StatelessWidget {
                 alignment: FractionalOffset(0.775, 0.9),
                 child: SizedBox.fromSize(
                   size: Size(125.0, 125.0),
-                  child: ManaIcon('assets/icons/U.svg'),
+                  child: ManaIcon('assets/icons/U.svg', 'Blue'),
                 )
             )
         ),

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'color_identity_selection.dart';
-import 'color_identity_display.dart';
+import 'package:mtg_slo/screens/mana_selection_screen/color_identity_selection.dart';
+import 'package:mtg_slo/screens/mana_selection_screen/color_identity_display.dart';
+import 'package:mtg_slo/global_states.dart';
 
 class ManaSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final globalStates = Provider.of<GlobalStates>(context);
     return Scaffold(
       appBar: AppBar(
         title: RichText(
             text: TextSpan(
-                text: "MTG: Statistical Land Optimization",
+                text: globalStates.getFormat,
                 style: TextStyle(
                   fontFamily: 'Magic', color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold,
                 )

@@ -2,31 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-import 'code_state.dart';
+import 'package:mtg_slo/global_states.dart';
 
 class ManaIcon extends StatelessWidget {
   final String _assetPath;
-  bool pressed = false;
+  final String _heroTag;
 
   String get assetPath {
     return _assetPath;
   }
 
-  bool get pressedStatus {
-    return pressed;
-  }
-
-  ManaIcon(this._assetPath);
+  ManaIcon(this._assetPath, this._heroTag);
 
   @override
   Widget build(BuildContext context) {
-    final codeState = Provider.of<CodeState>(context);
+    final globalStates = Provider.of<GlobalStates>(context);
     return FloatingActionButton(
-      focusColor: Colors.black,
+      heroTag: _heroTag,
       onPressed: () {
-        pressed = !pressed;
-
-        codeState.setCode(this);
+        globalStates.setCode(this);
       },
       child: Stack (
         children: [
@@ -38,7 +32,7 @@ class ManaIcon extends StatelessWidget {
           ),
           Container(
             decoration: new BoxDecoration(
-              color: Colors.white.withOpacity(codeState.getOpacity(this)),
+              color: Colors.white.withOpacity(globalStates.getOpacity(this)),
               shape: BoxShape.circle
             )
           ),

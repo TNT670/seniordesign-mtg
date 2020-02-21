@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/mana_selection_screen/code_state.dart';
-import 'screens/mana_selection_screen/mana_selection_screen.dart';
+import 'package:mtg_slo/global_states.dart';
+import 'package:mtg_slo/screens/format_selection_screen/format_selection_screen.dart';
+import 'package:mtg_slo/screens/mana_selection_screen/mana_selection_screen.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => CodeState()),
+        ChangeNotifierProvider(create: (context) => GlobalStates()),
       ],
       child: App(),
     ),
@@ -20,7 +20,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ManaSelectionScreen()   // temp
+      initialRoute: '/',
+      routes: {
+        '/': (context) => FormatSelectionScreen(),
+        '/second': (context) => ManaSelectionScreen(),
+      }
     );
   }
 }
