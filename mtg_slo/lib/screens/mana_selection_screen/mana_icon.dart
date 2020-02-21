@@ -22,16 +22,28 @@ class ManaIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final codeState = Provider.of<CodeState>(context);
     return FloatingActionButton(
+      focusColor: Colors.black,
       onPressed: () {
         pressed = !pressed;
+
         codeState.setCode(this);
       },
-      child: SvgPicture.asset(
-        _assetPath,
-        height: 5000.0,
-        width: 5000.0,
-        allowDrawingOutsideViewBox: true,
-      ),
+      child: Stack (
+        children: [
+          SvgPicture.asset(
+            _assetPath,
+            height: 5000.0,
+            width: 5000.0,
+            allowDrawingOutsideViewBox: true,
+          ),
+          Container(
+            decoration: new BoxDecoration(
+              color: Colors.white.withOpacity(codeState.getOpacity(this)),
+              shape: BoxShape.circle
+            )
+          ),
+        ]
+      )
     );
   }
 }

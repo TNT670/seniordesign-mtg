@@ -3,25 +3,23 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
 import 'mana_icon.dart';
+import 'package:mtg_slo/mana_display.dart';
 
 class CodeState extends ChangeNotifier {
   String _code = "";
   String _symbol = "";
   String _identity = "";
-  List<ManaIcon> manaIcons = List();
-  List<String> _identities = ['a', 'b', 'c'];
+  List<ManaDisplay> manaDisplays = List();
+  List<String> _identities = List();
 
   CodeState() {
-    print(_identities);
     getIdentities();
-
   }
 
   void getIdentities() async {
     String body = await rootBundle.loadString('assets/docs/identities_standard.txt');
     LineSplitter ls = new LineSplitter();
     _identities = ls.convert(body);
-    //_identities = body.split('\\n').map((String text) => Text(text)).toList();
     print(_identities);
   }
 
@@ -33,18 +31,18 @@ class CodeState extends ChangeNotifier {
     else {
       _code = _code.replaceAll(RegExp(_symbol), '');
     }
-    manaIcons = setIcons();
+    manaDisplays = setDisplays();
 
     notifyListeners();
   }
 
-  List<ManaIcon> setIcons() {
-    manaIcons.clear();
+  List<ManaDisplay> setDisplays() {
+    manaDisplays.clear();
     for (int i=0; i<_code.length; i++) {
-      manaIcons.add(ManaIcon('assets/icons/'+_code[i]+'.svg'));
+      manaDisplays.add(ManaDisplay('assets/icons/'+_code[i]+'.svg'));
     }
     setIdentity();
-    return manaIcons;
+    return manaDisplays;
   }
 
   void setIdentity() {
@@ -62,7 +60,12 @@ class CodeState extends ChangeNotifier {
         break;
       }
     }
-
+  }
+  double getOpacity(ManaIcon manaIcon) {
+    if (manaIcon.pressedStatus)
+      return 0;
+    else
+      return 0.75;
   }
 
   String get getCode => _code;
