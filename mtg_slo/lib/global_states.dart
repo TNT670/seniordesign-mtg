@@ -13,12 +13,11 @@ class GlobalStates extends ChangeNotifier {
   List<ManaDisplay> manaDisplays = List();
   List<String> _identities = List();
 
-  void getIdentities() async {
+  Future getIdentities() async {  // returns Future so it can be awaited (no return statement necessary)
     String body;
-    if(_format.contains("Standard40") || _format.contains("Standard60"))
-      body = await rootBundle.loadString('assets/docs/identities_standard.txt');
-    else
-      body = await rootBundle.loadString('assets/docs/identities_commander.txt');
+    body = _format.contains("Standard") ?
+      await rootBundle.loadString('assets/docs/identities_standard.txt') :
+      await rootBundle.loadString('assets/docs/identities_commander.txt');
     LineSplitter ls = new LineSplitter();
     _identities = ls.convert(body);
   }
@@ -31,18 +30,29 @@ class GlobalStates extends ChangeNotifier {
     else {
       _code = _code.replaceAll(RegExp(_symbol), '');
     }
-    manaDisplays = setDisplays();
 
-    notifyListeners();
+    String sortedCode = "";
+    // ensures WUBRG order
+    if(_code.contains('W'))
+      sortedCode += 'W';
+    if(_code.contains('U'))
+      sortedCode += 'U';
+    if(_code.contains('B'))
+      sortedCode += 'B';
+    if(_code.contains('R'))
+      sortedCode += 'R';
+    if(_code.contains('G'))
+      sortedCode += 'G';
+    _code = sortedCode;
+    setDisplays();
   }
 
-  List<ManaDisplay> setDisplays() {
+  void setDisplays() {
     manaDisplays.clear();
     for (int i=0; i<_code.length; i++) {
       manaDisplays.add(ManaDisplay('assets/icons/'+_code[i]+'.svg'));
     }
     setIdentity();
-    return manaDisplays;
   }
 
   void setIdentity() {
@@ -60,6 +70,7 @@ class GlobalStates extends ChangeNotifier {
         break;
       }
     }
+    notifyListeners();  // update widgets now that code, displays and identity have been changed
   }
 
   double getOpacity(ManaIcon manaIcon) {
@@ -70,13 +81,14 @@ class GlobalStates extends ChangeNotifier {
       return 0.75;
   }
 
-  void setFormat(String format) {
+  void setFormat(String format) async {
     _format = format;
-    getIdentities();
-    setIdentity();
+    await getIdentities();
+    setDisplays();
   }
 
   String get getCode => _code;
   String get getIdentity => _identity;
   String get getFormat => _format;
+  List<ManaDisplay> get getDisplays => manaDisplays;
 }

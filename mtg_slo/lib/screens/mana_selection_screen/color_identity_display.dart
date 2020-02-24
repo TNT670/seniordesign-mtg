@@ -17,7 +17,7 @@ class ColorIdentityDisplay extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             //crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: globalStates.setDisplays(),
+            children: globalStates.getDisplays,
           ),
           RichText(
             text: TextSpan(

@@ -20,6 +20,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'MTG: SLO',
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple
+      ),
       initialRoute: '/',
       routes: {
         '/': (context) => FormatSelectionScreen(),

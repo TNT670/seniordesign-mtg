@@ -23,9 +23,9 @@ URW - Jeskai
 BGU - Sultai
 RWB - Mardu
 GUR - Temur
-UBRG - Glint-Eye Nephilim
-BRGW - Dune-Brood Nephilim
-RGWU - Ink-Treader Nephilim
-GWUB - Witch-Maw Nephilim
-WUBR - Yore-Tiller Nephilim
+UBRG - Glint-Eye
+BRGW - Dune-Brood
+RGWU - Ink-Treader
+GWUB - Witch-Maw
+WUBR - Yore-Tiller
 WUBRG - WUBRG

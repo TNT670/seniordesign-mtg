@@ -53,12 +53,13 @@ class ManaSelectionScreen extends StatelessWidget {
           )
         ]
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           // go to next screen
         },
-        child: Icon(Icons.arrow_forward),
-        backgroundColor: Colors.deepPurple
+        label: Text('Next'),
+        icon: Icon(Icons.arrow_forward),
+        // backgroundColor: Colors.deepPurple
       )
     );
   }
