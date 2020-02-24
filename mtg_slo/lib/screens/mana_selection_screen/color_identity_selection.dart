@@ -31,7 +31,7 @@ class ColorIdentitySelection extends StatelessWidget {
                 alignment: FractionalOffset(0.95, 0.4),
                 child: SizedBox.fromSize(
                   size: Size(125.0, 125.0),
-                  child: ManaIcon('assets/icons/U.svg', 'Black'),
+                  child: ManaIcon('assets/icons/U.svg', 'Blue'),
                 )
             )
         ),
@@ -49,7 +49,7 @@ class ColorIdentitySelection extends StatelessWidget {
                 alignment: FractionalOffset(0.775, 0.9),
                 child: SizedBox.fromSize(
                   size: Size(125.0, 125.0),
-                  child: ManaIcon('assets/icons/B.svg', 'Blue'),
+                  child: ManaIcon('assets/icons/B.svg', 'Black'),
                 )
             )
         ),
