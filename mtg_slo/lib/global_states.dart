@@ -58,6 +58,7 @@ class GlobalStates extends ChangeNotifier {
   void setIdentity() {
     _identity = "";
     bool flag;
+
     for (int i=0; i<_identities.length; i++) {
       flag = true;
       for (int j=0; j<_code.length; j++) {
@@ -71,6 +72,11 @@ class GlobalStates extends ChangeNotifier {
       }
     }
     notifyListeners();  // update widgets now that code, displays and identity have been changed
+  }
+
+  void identityError() {
+    _identity = "Must select a color identity.";
+    notifyListeners();
   }
 
   double getOpacity(ManaIcon manaIcon) {

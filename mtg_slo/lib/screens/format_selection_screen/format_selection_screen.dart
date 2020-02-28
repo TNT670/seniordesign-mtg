@@ -28,7 +28,7 @@ class FormatSelectionScreen extends StatelessWidget {
               color: Colors.redAccent,
               onPressed: () {
                 globalStates.setFormat("Standard40");
-                Navigator.pushNamed(context, '/second');
+                Navigator.pushNamed(context, '/mana');
               },
               child: RichText(
                   text: TextSpan(
@@ -46,7 +46,7 @@ class FormatSelectionScreen extends StatelessWidget {
               color: Colors.blueAccent,
               onPressed: () {
                 globalStates.setFormat("Standard60");
-                Navigator.pushNamed(context, '/second');
+                Navigator.pushNamed(context, '/mana');
               },
               child: RichText(
                   text: TextSpan(
@@ -64,7 +64,7 @@ class FormatSelectionScreen extends StatelessWidget {
               color: Colors.greenAccent,
               onPressed: () {
                 globalStates.setFormat("Commander");
-                Navigator.pushNamed(context, '/second');
+                Navigator.pushNamed(context, '/mana');
               },
               child: RichText(
                   text: TextSpan(

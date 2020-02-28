@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:mtg_slo/global_states.dart';
+import 'package:mtg_slo/deck_states.dart';
 import 'package:mtg_slo/screens/format_selection_screen/format_selection_screen.dart';
 import 'package:mtg_slo/screens/mana_selection_screen/mana_selection_screen.dart';
+import 'package:mtg_slo/screens/input_method_screen/input_method_screen.dart';
+import 'package:mtg_slo/screens/manual_selection_screen/manual_selection_screen.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => GlobalStates()),
+        ChangeNotifierProvider(create: (context) => DeckStates()),
       ],
       child: App(),
     ),
@@ -27,7 +31,9 @@ class App extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => FormatSelectionScreen(),
-        '/second': (context) => ManaSelectionScreen(),
+        '/mana': (context) => ManaSelectionScreen(),
+        '/input': (context) => InputSelectionScreen(),
+        '/manual': (context) => ManualSelectionScreen(),
       }
     );
   }
