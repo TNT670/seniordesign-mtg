@@ -35,6 +35,7 @@ class DeckStates extends ChangeNotifier {
     _costCode = "";
     _count = 1;
     deck.clear();
+    notifyListeners();
   }
 
   void softClear() {
@@ -42,11 +43,11 @@ class DeckStates extends ChangeNotifier {
     _costCode = "";
   }
 
-  void setCode(String code) async {
+  void setCode(String code) {
     _code = code;
     _costCode = "";
     setBasicButtons();
-    await setAdvancedButtons();
+    setAdvancedButtons();
     weightController.text = '1';
     notifyListeners();
   }
@@ -59,7 +60,7 @@ class DeckStates extends ChangeNotifier {
     }
   }
 
-  Future setAdvancedButtons() async {
+  void setAdvancedButtons() {
     int count;
 
     advancedButtons.clear();

@@ -151,10 +151,12 @@ class ManualSelectionScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: Visibility(
-        visible: (deckStates.getCurrentCardCount != 0),
+        visible: (deckStates.getCurrentCardCount != 1),
         child: FloatingActionButton.extended(
           onPressed: () {
-            Navigator.popUntil(context, ModalRoute.withName('/'));
+            // TODO: pass deck to hypergeometric script
+            deckStates.clear();
+            Navigator.pushNamed(context, '/results');
           },
           label: Text('Next'),
           icon: Icon(Icons.arrow_forward),
