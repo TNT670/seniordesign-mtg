@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
+import 'package:mtg_slo/deck.dart';
 import 'package:mtg_slo/screens/mana_selection_screen/mana_icon.dart';
 import 'package:mtg_slo/mana_display.dart';
 
@@ -12,6 +13,7 @@ class GlobalStates extends ChangeNotifier {
   String _format = "";  // the format the player is utilizing
   List<ManaDisplay> manaDisplays = List();
   List<String> _identities = List();
+  List<Deck> _decks = List();
 
   Future getIdentities() async {  // returns Future so it can be awaited (no return statement necessary)
     String body;

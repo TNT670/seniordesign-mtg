@@ -20,6 +20,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  starflut: any
+  permission_handler: '^4.3.0'
+
   flutter_svg: ^0.17.1
   provider: ^3.0.0
   path_provider: ^0.4.1
@@ -31,9 +34,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  starflut:
-    path: B:\Hans\Documents\MTG_SLO\seniordesign-mtg\starcore_for_flutter\starflut
 
 
 # For information on the generic Dart part of this file, see the
@@ -49,6 +49,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - backend/
     - assets/icons/
     - assets/fonts/
     - assets/docs/identities_standard.txt
