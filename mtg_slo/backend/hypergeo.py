@@ -1,8 +1,12 @@
 
 
-from scipy.special import binom
+# from scipy.special import binom
+from math import factorial
 
-def MVGH(pop,req,totalPop):
+def binom():
+	pass
+
+def MVHG(pop,req,totalPop):
 	""" Returns probability
 
 	Keyword Arguments:
@@ -58,7 +62,7 @@ if __name__ == '__main__':
 	r = (2,2,2)
 	N = 30
 	n = 6
-	assert round(MVGH(p,r,N,n),10) == 0.0795755968
+	assert round(MVHG(p,r,N,n),10) == 0.0795755968
 	# Example per
 	# https://en.wikipedia.org/wiki/Hypergeometric_distribution#Multivariate_hypergeometric_distribution
 
