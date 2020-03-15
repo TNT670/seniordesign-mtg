@@ -33,7 +33,7 @@ class ResultsScreen extends StatelessWidget {
             child: FlatButton(
               color: Colors.blueGrey,
               onPressed: () async {
-                print(await results.install("numpy scipy matplotlib ipython jupyter pandas sympy nose"));
+                // previously used for testing
               }
            )
           )
