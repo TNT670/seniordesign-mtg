@@ -1,6 +1,11 @@
 class MTGCard {
-  String name, manaCost;
-  String weight;
+  String cardName, manaCost;
+  // String weight;
 
-  MTGCard(this.manaCost, this.weight, {name=""});
+  MTGCard(this.manaCost, {this.cardName=""});
+
+  Map<String, dynamic> toJson() => {
+    'cardName': cardName,
+    'manaCost': manaCost,
+  };
 }

@@ -41,5 +41,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera usage is required to utilize computer vision</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo Library access required to select an image from Camera Roll</string>
 </dict>
 </plist>
