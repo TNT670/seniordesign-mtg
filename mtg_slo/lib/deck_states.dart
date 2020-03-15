@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:mtg_slo/card.dart';
+import 'package:mtg_slo/deck.dart';
 import 'package:mtg_slo/screens/manual_selection_screen/mana_button.dart';
 import 'package:mtg_slo/screens/manual_selection_screen/mana_button_deselect.dart';
 
 class DeckStates extends ChangeNotifier {
-  List<MTGCard> deck = List();
+  Deck deck = Deck("tempName");
   List<ManaButton> basicButtons = List(), advancedButtons = List();
   List<ManaButtonDeselect> manaCost = List();
   String _code, _costCode;
@@ -46,6 +47,7 @@ class DeckStates extends ChangeNotifier {
   void setCode(String code) {
     _code = code;
     _costCode = "";
+    deck.setIdentity(code);
     setBasicButtons();
     setAdvancedButtons();
     weightController.text = '1';
@@ -175,9 +177,11 @@ class DeckStates extends ChangeNotifier {
 
   bool addCard(String manaCost) {
     if (_count < _totalCount && manaCost != "") {
-      deck.add(MTGCard(manaCost, weightController.text));
+      for (int i=0; i<int.parse(weightController.text); i++) {
+        deck.addCard(MTGCard(manaCost));
+      }
+      _count += int.parse(weightController.text);
       weightController.text = '1';
-      _count += 1;
       softClear();
       notifyListeners();
       return true;
@@ -188,12 +192,12 @@ class DeckStates extends ChangeNotifier {
   }
 
   bool nextCard(String manaCost) {
-    if (deck.length >= (_count)) {
+    if (deck.getCards.length >= (_count)) {
       softClear();
-      deck[_count-1].manaCost = manaCost;
+      deck.getCards[_count-1].manaCost = manaCost;
       _count += 1;
-      if (_count <= deck.length)
-        _costCode = deck[_count-1].manaCost;
+      if (_count <= deck.getCards.length)
+        _costCode = deck.getCards[_count-1].manaCost;
       setMana();
       notifyListeners();
       return true;
@@ -206,7 +210,7 @@ class DeckStates extends ChangeNotifier {
   void previousCard() {
     _count -= 1;
     softClear();
-    _costCode = deck[_count-1].manaCost;
+    _costCode = deck.getCards[_count-1].manaCost;
 
     setMana();
     notifyListeners();
@@ -217,5 +221,5 @@ class DeckStates extends ChangeNotifier {
   List<ManaButton> get getBasicButtons => basicButtons;
   List<ManaButton> get getAdvancedButtons => advancedButtons;
   List<ManaButtonDeselect> get getManaCost => manaCost;
-  List<MTGCard> get getDeck => deck;
+  Deck get getDeck => deck;
 }

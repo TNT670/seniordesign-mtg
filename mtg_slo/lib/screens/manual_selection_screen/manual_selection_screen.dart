@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
 
+import 'package:mtg_slo/screens/results_screen/results.dart';
 import 'package:mtg_slo/global_states.dart';
 import 'package:mtg_slo/deck_states.dart';
 
@@ -10,6 +12,7 @@ class ManualSelectionScreen extends StatelessWidget {
     final globalStates = Provider.of<GlobalStates>(context);
     final deckStates = Provider.of<DeckStates>(context);
     final weightController = deckStates.weightController;
+    final results = Provider.of<Results>(context);
     return Scaffold(
       appBar: AppBar(
         title: RichText(
@@ -74,7 +77,7 @@ class ManualSelectionScreen extends StatelessWidget {
                     flex: 5,
                     child: RichText(
                       text: TextSpan(
-                        text: "Weight: ",
+                        text: "Copies ",
                         style: TextStyle(
                           fontFamily: 'Magic', fontSize: 25.0,
                           color: Colors.black, fontWeight: FontWeight.bold,
@@ -153,8 +156,11 @@ class ManualSelectionScreen extends StatelessWidget {
       floatingActionButton: Visibility(
         visible: (deckStates.getCurrentCardCount != 1),
         child: FloatingActionButton.extended(
-          onPressed: () {
+          onPressed: () async {
             // TODO: pass deck to hypergeometric script
+            // String json = jsonEncode(deckStates.getDeck);
+            // print(json);
+            await results.parseJson(deckStates.getDeck);
             deckStates.clear();
             Navigator.pushNamed(context, '/results');
           },

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:starflut/starflut.dart';
+import 'dart:convert';  // jsonEncode
+
+import 'package:mtg_slo/deck.dart';
 
 class Results extends ChangeNotifier {
 
@@ -15,7 +18,7 @@ class Results extends ChangeNotifier {
         "test", "123", 0, 0, []);
     await starcore.regMsgCallBackP(
             (int serviceGroupID, int uMsg, Object wParam, Object lParam) async {
-          print("$serviceGroupID  $uMsg   $wParam   $lParam");
+          // print("$serviceGroupID  $uMsg   $wParam   $lParam");
           return null;
         });
     StarSrvGroupClass SrvGroup = await Service["_ServiceGroup"];
@@ -37,7 +40,7 @@ class Results extends ChangeNotifier {
       await Starflut.copyFileFromAssets(
           "python3.6.zip", "flutter_assets/backend", null); //desRelatePath must be null
       await Starflut.copyFileFromAssets(
-          "test.py", "flutter_assets/backend", null);
+          "parse_json.py", "flutter_assets/backend", null);
       await Starflut.copyFileFromAssets(
           "hypergeo.py", "flutter_assets/backend", null);
       await Starflut.copyFileFromAssets(
@@ -54,7 +57,7 @@ class Results extends ChangeNotifier {
     print("initRaw = $rr1");
 
     var Result = await SrvGroup.loadRawModule(
-        "python", "", resPath + "/test.py", false);
+        "python", "", resPath + "/parse_json.py", false);
     print("loadTest= $Result");
 
     Result = await SrvGroup.loadRawModule(
@@ -72,8 +75,11 @@ class Results extends ChangeNotifier {
     // print(retobj);
   }
 
-  Future<dynamic> multiply(double x, double y) async {
-    dynamic product = await _python.call("multi", [x, y]);
-    return(product);
+  Future<String> install(String package) async {
+    return await _python.call("install", [package]);
+  }
+
+  Future<void> parseJson(Deck deck) async {
+    return await _python.call("parse_json", [jsonEncode(deck)]);
   }
 }
