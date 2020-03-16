@@ -1,5 +1,4 @@
 
-
 # from scipy.special import binom
 from math import ceil, factorial
 
@@ -8,8 +7,8 @@ def binom(n,k):
 	return factorial(n) / ( factorial(k) * factorial(n-k) )
 
 def LsHeuristic(manaCosts: list):
-	""" Returns a list representing the heuristic to be used. Rounds up; the
-	    returned list should add up to either 17 or 18.
+	""" Returns a list representing the land set. Rounds up; the returned list
+	    should add up to either 17 or 18.
 	
 	Keyword Arguments:
 		manaCosts: list of mana costs of the form (generic, (W,U,B,R,G)).
@@ -18,13 +17,13 @@ def LsHeuristic(manaCosts: list):
 		manaCosts = [(2, (0,0,0,1,1)), (2, (0,0,0,1,0)), (2, (0,0,0,0,1)),
 		             (1, (0,0,0,1,0)), (0, (0,0,0,1,1)), (1, (0,0,0,0,1)),
 					 (0, (0,0,0,1,0)), (0, (0,0,0,0,1))]
-		res = [0, 0, 0, 9, 9]
+		landSet = [0, 0, 0, 9, 9]
 	"""
     lands = [0,0,0,0,0]
 	for elem in manaCosts:
 	    lands = [lands[i] + elem[1][i] for i in range(0,5)]
-	res = [ceil(x * 17 / sum(lands)) for x in lands]
-	return res
+	landSet = [ceil(x * 17 / sum(lands)) for x in lands]
+	return landSet
 
 def MVHG(pop,req,totalPop):
 	""" Returns probability
