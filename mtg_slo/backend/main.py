@@ -1,7 +1,7 @@
 import hypergeo
 import structs
 
-# TODO
+# TODO MVP
 def LsHeuristic(decklist):
 	pass
 
@@ -34,3 +34,4 @@ initLandSet = (17,0,0,0,0)
 def starflutCallable(argument:Deck):
 	print(argument.name)
 	return (0,0,0,10,7)
+
