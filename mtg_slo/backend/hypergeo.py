@@ -3,8 +3,9 @@
 # from scipy.special import binom
 from math import factorial
 
-def binom():
-	pass
+# n! / [k!(n-k)!] for (n choose k)
+def binom(n,k):
+	return factorial(n) / ( factorial(k) * factorial(n-k) )
 
 def MVHG(pop,req,totalPop):
 	""" Returns probability
@@ -54,6 +55,19 @@ def cardCastibility(landSet:tuple, manaCost: str):
 
 	return odds
 
+def deckCastibility(cards):
+	pass
+
+# def bestLands(cards):
+# 	best = LsHeuristic(cards)
+# 	bestScore = deckCastibiliity(best)
+	
+# 	for thisLands in each possible set of Lands in color identity:
+# 		if deckCastibiliity(thisLands) > bestScore:
+# 			best = thisLands
+# 			bestScore = deckCastibiliity(thisLands)
+
+# 	return best
 
 
 

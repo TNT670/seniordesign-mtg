@@ -19,7 +19,7 @@ def parse_json(json_s):
     rawManaCostList = [x["manaCost"] for x in obj["cards"]]
     # ['0 0 0 W U G ', 'X GU GW ', 'X WU WP ']
 
-    mana_tuples = mana_to_tuple(mana_costs)
+    mana_tuples = mana_to_tuple(rawManaCostList)
     # 5 tuple of count of color appearances
     manaCosts = []
     for c, t in zip(rawManaCostList, mana_tuples):
@@ -27,6 +27,8 @@ def parse_json(json_s):
         cost = ((c.count('0')),t)
         manaCosts += [cost]
         print(cost)
+
+    # return bestLands(manaCosts)
 
 
 
