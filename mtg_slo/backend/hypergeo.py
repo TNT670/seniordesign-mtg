@@ -1,4 +1,3 @@
-
 # from scipy.special import binom
 from math import ceil, factorial
 
@@ -98,8 +97,16 @@ def findManaCombos(generics, lands, res, combos):
             resCopy[i] += 1
             findManaCombos(generics - 1, landsCopy, resCopy, combos)
 
-def deckCastibility(cards):
-    pass
+def deckCastibility(manaCosts: list, lands: list):
+	# Returns average castibility of spells in deck.
+
+	c = 0
+	for m in manaCosts:
+		c += cardCastibility(lands, s)
+	
+	c /= len(lands)
+	
+	return c
 
 # def bestLands(cards):
 #     best = LsHeuristic(cards)
