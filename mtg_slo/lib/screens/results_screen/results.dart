@@ -45,6 +45,8 @@ class Results extends ChangeNotifier {
           "hypergeo.py", "flutter_assets/backend", null);
       await Starflut.copyFileFromAssets(
           "main.py", "flutter_assets/backend", null);
+      await Starflut.copyFileFromAssets(
+          "structs.py", "flutter_assets/backend", null);
     }
 
     String docPath = await Starflut.getDocumentPath();
@@ -57,12 +59,16 @@ class Results extends ChangeNotifier {
     print("initRaw = $rr1");
 
     var Result = await SrvGroup.loadRawModule(
-        "python", "", resPath + "/parse_json.py", false);
-    print("loadTest= $Result");
-
-    Result = await SrvGroup.loadRawModule(
         "python", "", resPath + "/hypergeo.py", false);
     print("hypergeo= $Result");
+
+    Result = await SrvGroup.loadRawModule(
+        "python", "", resPath + "/structs.py", false);
+    print("structs= $Result");
+
+    Result = await SrvGroup.loadRawModule(
+        "python", "", resPath + "/parse_json.py", false);
+    print("parse_json= $Result");
 
     Result = await SrvGroup.loadRawModule(
         "python", "", resPath + "/main.py", false);

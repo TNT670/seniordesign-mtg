@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:mtg_slo/deck.dart';
 import 'package:mtg_slo/screens/mana_selection_screen/mana_icon.dart';
@@ -14,6 +15,7 @@ class GlobalStates extends ChangeNotifier {
   List<ManaDisplay> manaDisplays = List();
   List<String> _identities = List();
   List<Deck> _decks = List();
+  File _image;
 
   Future getIdentities() async {  // returns Future so it can be awaited (no return statement necessary)
     String body;
@@ -95,8 +97,14 @@ class GlobalStates extends ChangeNotifier {
     setDisplays();
   }
 
+  void setImage(File image) {
+    _image = image;
+    print("image saved to global_states.dart");
+  }
+
   String get getCode => _code;
   String get getIdentity => _identity;
   String get getFormat => _format;
   List<ManaDisplay> get getDisplays => manaDisplays;
+  File get getImage => _image;
 }

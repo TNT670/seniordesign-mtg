@@ -43,7 +43,7 @@ class _InputSelectionState extends State<InputSelectionScreen> {
       PermissionHandler().openAppSettings();
     } else {
       _updateStatus(status);
-      // TODO: go to camera screen
+      Navigator.pushNamed(context, '/camera');
     }
   }
 

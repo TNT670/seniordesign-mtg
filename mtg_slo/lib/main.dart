@@ -9,6 +9,7 @@ import 'package:mtg_slo/screens/mana_selection_screen/mana_selection_screen.dart
 import 'package:mtg_slo/screens/input_method_screen/input_method_screen.dart';
 import 'package:mtg_slo/screens/manual_selection_screen/manual_selection_screen.dart';
 import 'package:mtg_slo/screens/results_screen/results_screen.dart';
+import 'package:mtg_slo/screens/camera_screen/camera.dart';
 
 void main() {
   runApp(
@@ -37,7 +38,8 @@ class App extends StatelessWidget {
         '/mana': (context) => ManaSelectionScreen(),
         '/input': (context) => InputSelectionScreen(),
         '/manual': (context) => ManualSelectionScreen(),
-        '/results': (context) => ResultsScreen()
+        '/results': (context) => ResultsScreen(),
+        '/camera': (context) => CameraScreen(),
       }
     );
   }
