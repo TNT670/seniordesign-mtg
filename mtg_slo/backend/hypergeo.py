@@ -1,9 +1,10 @@
-# from scipy.special import binom
 from math import factorial
+
 
 # n! / [k!(n-k)!] for (n choose k)
 def binom(n,k):
-    return factorial(n) / ( factorial(k) * factorial(n-k) )
+	print(n,k,n-k)
+	return factorial(n) / ( factorial(k) * factorial(n-k) )
 
 def LsHeuristic(manaCosts: list):
     """ Returns a list representing the land set. Rounds up; the returned list
@@ -41,6 +42,12 @@ def MVHG(pop,req,totalPop):
     
     num = 1
     for N,k in zip(pop,req):
+        # print('\t',N,k)
+        if N-k < 0:
+        	return 0
+            # print(N,k)
+            # print(pop,req)
+            # exit()
         num *= binom(N,k)
     
     den = binom(totalPop,sampleSize)
@@ -119,10 +126,10 @@ def bestLands(manaCosts: list):
 
 #     return best
   bestLandSet = LsHeuristic(manaCosts)
-  bestScore = deckCastability(manaCost, bestLandSet)
+  bestScore = deckCastibility(manaCosts, bestLandSet)
 
   landTypes = 0
-  for i in range(bestLandSet):
+  for i in range(len(bestLandSet)):
     if bestLandSet[i] != 0:
       landTypes += 1
 
@@ -133,47 +140,47 @@ def bestLands(manaCosts: list):
   elif landTypes == 2:
     originalBestLandSet = bestLandSet.copy()
     testLandSet = bestLandSet.copy()
-    raiseValue = TRUE
+    raiseValue = True
     ##  First Tests the landSet by raising the amount of the first type of lands and lowering the second type
     while(landTypes == 2):
-      for i in range(testLandSet):
+      for i in range(len(testLandSet)):
         if testLandSet[i] != 0:
           ## Raise the value of the first land type
-          if raiseValue == TRUE:
+          if raiseValue == True:
             testLandSet[i] = testLandSet[i] + 1
-            raiseValue = FALSE
+            raiseValue = False
           ## Lower the value of the second land type
-          elif raiseValue == FALSE:
+          elif raiseValue == False:
             testLandSet[i] = testLandSet[i] - 1
-            raiseValue = TRUE
+            raiseValue = True
         ## If the tested landSet is better than the previous it is set as the bestLandSet
         if deckCastibility(manaCosts, testLandSet) > bestScore:
           bestLandSet = testLandSet
           bestScore = deckCastibility(manaCosts, testLandSet)
         ## Make sure that one of the lands hasnt reached 0
         landTypes = 0
-      for i in range(testLandSet):
+      for i in range(len(testLandSet)):
         if testLandSet[i] != 0:
           landTypes += 1
 
     ## Now test the landSet by lowering the first type of lands and raising the second type
     testLandSet = originalBestLandSet.copy()
-    raiseValue = FALSE
+    raiseValue = False
     landTypes = 2
     while(landTypes == 2):
-      for i in range(testLandSet):
+      for i in range(len(testLandSet)):
         if testLandSet[i] != 0:
-          if raiseValue == TRUE:
+          if raiseValue == True:
             testLandSet[i] = testLandSet[i] + 1
-            raiseValue = FALSE
-          elif raiseValue == FALSE:
+            raiseValue = False
+          elif raiseValue == False:
             testLandSet[i] = testLandSet[i] -1
-            raiseValue = TRUE
+            raiseValue = True
         if deckCastibility(manaCosts, testLandSet) > bestScore:
           bestLandSet = testLandSet
           bestScore = deckCastibility(manaCosts, testLandSet)
       landTypes = 0
-      for i in range(testLandSet):
+      for i in range(len(testLandSet)):
         if testLandSet[i] != 0:
           landTypes += 1
 
