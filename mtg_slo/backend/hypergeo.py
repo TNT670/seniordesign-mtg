@@ -187,7 +187,7 @@ if __name__ == '__main__':
     r = (2,2,2)
     N = 30
     n = 6
-    assert round(MVHG(p,r,N,n),10) == 0.0795755968
+    #assert round(MVHG(p,r,N,n),10) == 0.0795755968
     # Example per
     # https://en.wikipedia.org/wiki/Hypergeometric_distribution#Multivariate_hypergeometric_distribution
 
