@@ -92,9 +92,9 @@ class DeckStates extends ChangeNotifier {
   }
 
   int getCardCount(String format) {
-    if (format == "Standard40")
+    if (format == "Standard 40")
       _totalCount = 40;
-    else if (format == "Standard60")
+    else if (format == "Standard 60")
       _totalCount = 60;
     else
       _totalCount = 100;

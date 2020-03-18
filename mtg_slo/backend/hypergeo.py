@@ -3,7 +3,7 @@ from math import factorial
 
 # n! / [k!(n-k)!] for (n choose k)
 def binom(n,k):
-	print(n,k,n-k)
+	# print(n,k,n-k)
 	return factorial(n) / ( factorial(k) * factorial(n-k) )
 
 def LsHeuristic(manaCosts: list):
@@ -51,8 +51,8 @@ def MVHG(pop,req,totalPop):
         num *= binom(N,k)
     
     den = binom(totalPop,sampleSize)
-    print(num)
-    print(den)
+    # print(num)
+    # print(den)
     return num / den
 
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:starflut/starflut.dart';
 import 'dart:convert';  // jsonEncode
+import 'package:tuple/tuple.dart';
 
 import 'package:mtg_slo/deck.dart';
 
@@ -85,7 +86,7 @@ class Results extends ChangeNotifier {
     return await _python.call("install", [package]);
   }
 
-  Future<void> parseJson(Deck deck) async {
+  Future<StarObjectClass> parseJson(Deck deck) async {
     return await _python.call("parse_json", [jsonEncode(deck)]);
   }
 }

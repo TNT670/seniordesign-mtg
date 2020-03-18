@@ -7,7 +7,6 @@ import 'package:mtg_slo/deck.dart';
 import 'package:mtg_slo/screens/mana_selection_screen/mana_icon.dart';
 import 'package:mtg_slo/mana_display.dart';
 import 'package:mtg_slo/result_display.dart';
-import 'package:tuple/tuple.dart';
 
 class GlobalStates extends ChangeNotifier {
   var colorMap = {"W": 0, "U": 1, "B": 2, "R": 3, "G": 4};
@@ -16,7 +15,7 @@ class GlobalStates extends ChangeNotifier {
   String _code = "";  // string of chars representing color identity
   String _identity = "";  // title of identity
   String _format = "";  // the format the player is utilizing
-  Tuple5<int, int, int, int, int> _results;
+  List _results;
   List<ManaDisplay> manaDisplays = List();
   List<ResultDisplay> resultDisplays = List();
   List<String> _identities = List();
@@ -70,15 +69,20 @@ class GlobalStates extends ChangeNotifier {
     setIdentity();
   }
 
+  void setTupleFromPython(List list) {
+    _results = list;
+  }
+
   void setResults() {
     resultDisplays.clear();
     // remove the _results test set
-    _results = Tuple5(0,0,0,0,0);
-    List resultList = _results.toList();
+    // _results = Tuple5(0, 0, 0, 0, 0);
+    List resultList = _results;
     for (int i = 0; i < manaDisplays.length; i++) {
         var landCount = resultList[colorMap[manaDisplays[i].getAssetPath[manaDisplays[i].getAssetPath.length - 5]]];
         resultDisplays.add(ResultDisplay(manaDisplays[i], landCount));
-      }
+    }
+    notifyListeners();
   }
 
   void setIdentity() {
@@ -132,4 +136,5 @@ class GlobalStates extends ChangeNotifier {
   List<ManaDisplay> get getDisplays => manaDisplays;
   List<ResultDisplay> get getResultDisplays => resultDisplays;
   File get getImage => _image;
+  List get getResults => _results;
 }

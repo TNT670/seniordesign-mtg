@@ -13,7 +13,7 @@ class ResultsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final globalStates = Provider.of<GlobalStates>(context);
     //final results = Provider.of<Results>(context);
-    final results = Tuple5<int, int, int, int, int>(4,2,0,6,9);
+    final results = globalStates.getResults;
     final resultsList = results.toList();
     int count = 0;
     for (int i = 0; i < resultsList.length; i++) {

@@ -26,7 +26,7 @@ def parse_json(json_s):
         # print("{}\t{}".format(c, t))
         cost = ((c.count('0')),t)
         manaCosts += [cost]
-        print(cost)
+        # print(cost)
 
     return hypergeo.bestLands(manaCosts)
 
@@ -132,4 +132,4 @@ if __name__ == '__main__':
         ]
     }
 
-    parse_json(json.dumps(data))
+    # parse_json(json.dumps(data))

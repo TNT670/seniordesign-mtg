@@ -160,8 +160,15 @@ class ManualSelectionScreen extends StatelessWidget {
             // TODO: pass deck to hypergeometric script
             // String json = jsonEncode(deckStates.getDeck);
             // print(json);
-            await results.parseJson(deckStates.getDeck);
-            deckStates.clear();
+            var tuple = await results.parseJson(deckStates.getDeck);
+            String tupleString = await tuple.getString();
+            tupleString = tupleString.substring(tupleString.length - 16, tupleString.length);
+            print("tupleString = $tupleString");
+            var list = json.decode(tupleString);
+            print("LIST = $list");
+            globalStates.setTupleFromPython(list);
+            globalStates.setResults();
+            // deckStates.clear();
             Navigator.pushNamed(context, '/results');
           },
           label: Text('Next'),
