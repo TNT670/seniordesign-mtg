@@ -166,7 +166,7 @@ def bestLands(manaCosts: list):
           if raiseValue == TRUE:
             testLandSet[i] = testLandSet[i] + 1
             raiseValue = FALSE
-          elif riaseValue == FALSE:
+          elif raiseValue == FALSE:
             testLandSet[i] = testLandSet[i] -1
             raiseValue = TRUE
         if deckCastibility(manaCosts, testLandSet) > bestScore:
