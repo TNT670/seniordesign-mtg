@@ -28,7 +28,7 @@ def parse_json(json_s):
         manaCosts += [cost]
         print(cost)
 
-    return bestLands(manaCosts)
+    return hypergo.bestLands(manaCosts)
 
 
 
@@ -37,6 +37,22 @@ if __name__ == '__main__':
         "deckName":"tempName",
         "identity":"WUG",
         "cards":[
+            {
+                "cardName":"",
+                "manaCost":"0 0 0 R R "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 0 0 R R "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 0 R G "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 0 R G "
+            },
             {
                 "cardName":"",
                 "manaCost":"0 0 R G "
@@ -48,6 +64,70 @@ if __name__ == '__main__':
             {
                 "cardName":"",
                 "manaCost":"0 0 G "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 0 G "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 0 G "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 0 G "
+            },# 10th card 
+            {
+                "cardName":"",
+                "manaCost":"0 0 R "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 0 R "
+            },       
+            {
+                "cardName":"",
+                "manaCost":"G G "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 G "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 G "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 G "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 R "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 R "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 R "
+            },
+            {
+                "cardName":"",
+                "manaCost":"0 R "
+            },#20th card
+            {
+                "cardName":"",
+                "manaCost":"G "
+            },
+            {
+                "cardName":"",
+                "manaCost":"G "
+            },
+            {
+                "cardName":"",
+                "manaCost":"G "
             },
         ]
     }
