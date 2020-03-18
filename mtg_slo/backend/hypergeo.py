@@ -102,7 +102,7 @@ def deckCastibility(manaCosts: list, lands: list):
 
 	c = 0
 	for m in manaCosts:
-		c += cardCastibility(lands, s)
+		c += cardCastibility(lands, m)
 	
 	c /= len(lands)
 	
