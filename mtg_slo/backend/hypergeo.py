@@ -108,7 +108,7 @@ def deckCastibility(manaCosts: list, lands: list):
 	
 	return c
 
-# def bestLands(cards):
+def bestLands(manaCosts: list):
 #     best = LsHeuristic(cards)
 #     bestScore = deckCastibiliity(best)
     
@@ -118,6 +118,67 @@ def deckCastibility(manaCosts: list, lands: list):
 #             bestScore = deckCastibiliity(thisLands)
 
 #     return best
+  bestLandSet = LsHeuristic(manaCosts)
+  bestScore = deckCastability(manaCost, bestLandSet)
+
+  landTypes = 0
+  for i in range(bestLandSet):
+    if bestLandSet[i] != 0:
+      landTypes += 1
+
+  if landTypes == 1:
+    return bestLandSet
+
+
+  elif landTypes == 2:
+    originalBestLandSet = bestLandSet.copy()
+    testLandSet = bestLandSet.copy()
+    raiseValue = TRUE
+    ##  First Tests the landSet by raising the amount of the first type of lands and lowering the second type
+    while(landTypes == 2):
+      for i in range(testLandSet):
+        if testLandSet[i] != 0:
+          ## Raise the value of the first land type
+          if raiseValue == TRUE:
+            testLandSet[i] = testLandSet[i] + 1
+            raiseValue = FALSE
+          ## Lower the value of the second land type
+          elif raiseValue == FALSE:
+            testLandSet[i] = testLandSet[i] - 1
+            raiseValue = TRUE
+        ## If the tested landSet is better than the previous it is set as the bestLandSet
+        if deckCastibility(manaCosts, testLandSet) > bestScore:
+          bestLandSet = testLandSet
+          bestScore = deckCastibility(manaCosts, testLandSet)
+        ## Make sure that one of the lands hasnt reached 0
+        landTypes = 0
+      for i in range(testLandSet):
+        if testLandSet[i] != 0:
+          landTypes += 1
+
+    ## Now test the landSet by lowering the first type of lands and raising the second type
+    testLandSet = originalBestLandSet.copy()
+    raiseValue = FALSE
+    landTypes = 2
+    while(landTypes == 2):
+      for i in range(testLandSet):
+        if testLandSet[i] != 0:
+          if raiseValue == TRUE:
+            testLandSet[i] = testLandSet[i] + 1
+            raiseValue = FALSE
+          elif riaseValue == FALSE:
+            testLandSet[i] = testLandSet[i] -1
+            raiseValue = TRUE
+        if deckCastibility(manaCosts, testLandSet) > bestScore:
+          bestLandSet = testLandSet
+          bestScore = deckCastibility(manaCosts, testLandSet)
+      landTypes = 0
+      for i in range(testLandSet):
+        if testLandSet[i] != 0:
+          landTypes += 1
+
+
+    return bestLandSet
 
 
 
