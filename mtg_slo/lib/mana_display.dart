@@ -26,4 +26,5 @@ class ManaDisplay extends StatelessWidget {
       )
     );
   }
+  String get getAssetPath => _assetPath;
 }

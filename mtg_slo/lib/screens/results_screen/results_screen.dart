@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tuple/tuple.dart';
 
 import 'package:mtg_slo/screens/results_screen/results.dart';
+import 'package:mtg_slo/global_states.dart';
 
 // TODO: (post-presentation 2): make screen stateful to account for different
 // land types
@@ -9,7 +11,16 @@ import 'package:mtg_slo/screens/results_screen/results.dart';
 class ResultsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final results = Provider.of<Results>(context);
+    final globalStates = Provider.of<GlobalStates>(context);
+    //final results = Provider.of<Results>(context);
+    final results = Tuple5<int, int, int, int, int>(4,2,0,6,9);
+    final resultsList = results.toList();
+    int count = 0;
+    for (int i = 0; i < resultsList.length; i++) {
+        if (resultsList[i] == 0) {
+          count++;
+        }
+      }
     return Scaffold(
       appBar: AppBar(
         title: RichText(
@@ -25,20 +36,15 @@ class ResultsScreen extends StatelessWidget {
         ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: FlatButton(
-              color: Colors.blueGrey,
-              onPressed: () async {
-                // previously used for testing
-              }
-           )
-          )
-        ]
-      )
-    );
+          children: [
+            Text("Land Counts"),
+            Text("White: " + resultsList[0].toString()),
+            Text("Blue: " + resultsList[1].toString()),
+            Text("Black: " + resultsList[2].toString()),
+            Text("Red: " + resultsList[3].toString()),
+            Text("Green: " + resultsList[4].toString()),
+          ]
+        )
+      );
   }
 }

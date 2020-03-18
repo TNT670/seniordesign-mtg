@@ -27,7 +27,7 @@ class FormatSelectionScreen extends StatelessWidget {
             child: FlatButton(
               color: Colors.redAccent,
               onPressed: () {
-                globalStates.setFormat("Standard40");
+                globalStates.setFormat("Standard 40");
                 Navigator.pushNamed(context, '/mana');
               },
               child: RichText(
@@ -45,7 +45,7 @@ class FormatSelectionScreen extends StatelessWidget {
             child: FlatButton(
               color: Colors.blueAccent,
               onPressed: () {
-                globalStates.setFormat("Standard60");
+                globalStates.setFormat("Standard 60");
                 Navigator.pushNamed(context, '/mana');
               },
               child: RichText(

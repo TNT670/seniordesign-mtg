@@ -6,13 +6,19 @@ import 'dart:io';
 import 'package:mtg_slo/deck.dart';
 import 'package:mtg_slo/screens/mana_selection_screen/mana_icon.dart';
 import 'package:mtg_slo/mana_display.dart';
+import 'package:mtg_slo/result_display.dart';
+import 'package:tuple/tuple.dart';
 
 class GlobalStates extends ChangeNotifier {
+  var colorMap = {"W": 0, "U": 1, "B": 2, "R": 3, "G": 4};
+
   String _symbol = "";  // temp
   String _code = "";  // string of chars representing color identity
   String _identity = "";  // title of identity
   String _format = "";  // the format the player is utilizing
+  Tuple5<int, int, int, int, int> _results;
   List<ManaDisplay> manaDisplays = List();
+  List<ResultDisplay> resultDisplays = List();
   List<String> _identities = List();
   List<Deck> _decks = List();
   File _image;
@@ -27,6 +33,10 @@ class GlobalStates extends ChangeNotifier {
   }
 
   void setCode(ManaIcon manaIcon) {
+    // manaIcon.assetPath.length - 5 always refers to the symbol
+    // mono color file names will be in the format "B.svg".
+    // So the length of the file name - 5 will always return
+    // the needed symbol.
     _symbol = manaIcon.assetPath[manaIcon.assetPath.length - 5];
     if(!_code.contains(_symbol)) {
       _code += _symbol;
@@ -53,16 +63,30 @@ class GlobalStates extends ChangeNotifier {
 
   void setDisplays() {
     manaDisplays.clear();
+    // _.code is the color identity
     for (int i=0; i<_code.length; i++) {
       manaDisplays.add(ManaDisplay('assets/icons/'+_code[i]+'.svg'));
     }
     setIdentity();
   }
 
+  void setResults() {
+    resultDisplays.clear();
+    // remove the _results test set
+    _results = Tuple5(0,0,0,0,0);
+    List resultList = _results.toList();
+    for (int i = 0; i < manaDisplays.length; i++) {
+        var landCount = resultList[colorMap[manaDisplays[i].getAssetPath[manaDisplays[i].getAssetPath.length - 5]]];
+        resultDisplays.add(ResultDisplay(manaDisplays[i], landCount));
+      }
+  }
+
   void setIdentity() {
     _identity = "";
     bool flag;
 
+    // _identities is a list of all color identities.
+    // This list is generated in getIdentities()
     for (int i=0; i<_identities.length; i++) {
       flag = true;
       for (int j=0; j<_code.length; j++) {
@@ -106,5 +130,6 @@ class GlobalStates extends ChangeNotifier {
   String get getIdentity => _identity;
   String get getFormat => _format;
   List<ManaDisplay> get getDisplays => manaDisplays;
+  List<ResultDisplay> get getResultDisplays => resultDisplays;
   File get getImage => _image;
 }
