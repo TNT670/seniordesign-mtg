@@ -1,5 +1,5 @@
 # from scipy.special import binom
-from math import round, factorial
+from math import factorial
 
 # n! / [k!(n-k)!] for (n choose k)
 def binom(n,k):
