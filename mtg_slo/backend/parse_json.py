@@ -28,7 +28,7 @@ def parse_json(json_s):
         manaCosts += [cost]
         print(cost)
 
-    # return bestLands(manaCosts)
+    return bestLands(manaCosts)
 
 
 
