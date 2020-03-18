@@ -1,5 +1,5 @@
 # from scipy.special import binom
-from math import ceil, factorial
+from math import round, factorial
 
 # n! / [k!(n-k)!] for (n choose k)
 def binom(n,k):
@@ -21,7 +21,7 @@ def LsHeuristic(manaCosts: list):
     lands = [0,0,0,0,0]
     for elem in manaCosts:
         lands = [lands[i] + elem[1][i] for i in range(0,5)]
-    landSet = [ceil(x * 17 / sum(lands)) for x in lands]
+    landSet = [round(x * 17 / sum(lands)) for x in lands]
     return landSet
 
 def MVHG(pop,req,totalPop):
@@ -38,7 +38,7 @@ def MVHG(pop,req,totalPop):
         totalPop = 40
     """
     sampleSize = sum(req)
-
+    
     num = 1
     for N,k in zip(pop,req):
         num *= binom(N,k)
@@ -71,25 +71,25 @@ def cardCastibility(landSet:list, manaCost:tuple):
     
     lands = landSet.copy()
     res = [0, 0, 0, 0, 0]
-    for i in range(0, len(res)):
+    for i in range(len(res)):
         lands[i] -= manaCost[1][i]
-        res += manaCost[1][i]
+        res[i] += manaCost[1][i]
     combos = []
     # This is where the magic happens
     findManaCombos(manaCost[0], lands, res, combos)
     manacombinations = set(combos)
-
+    
     odds = 0
     for c in manacombinations:
         odds += MVHG(lands, c, 40)
-
+    
     return odds
 
 def findManaCombos(generics, lands, res, combos):
     if (generics == 0):
         combos += (tuple(res),)
         return
-    for i in range(0, len(res)):
+    for i in range(len(res)):
         if (lands[i] != 0):
             landsCopy = lands.copy()
             landsCopy[i] -= 1
