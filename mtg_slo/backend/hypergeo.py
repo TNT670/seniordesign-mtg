@@ -141,12 +141,14 @@ def bestLands(manaCosts: list):
     
     initLandSet = LsHeuristic(manaCosts)
     # print(initLandSet)
-    bestScore = deckCastibility(manaCosts, initLandSet)
     
     k = 0 # Number of colors this deck uses
     for i in initLandSet:
         if (i != 0):
             k += 1
+    if (k == 1):
+        return initLandSet
+    
     landSets = []
     res = []
     # Programmatically find combinations of numbers of k land types that add up
@@ -159,7 +161,8 @@ def bestLands(manaCosts: list):
     # And remove duplicates by converting to set. Creates set of k-tuples
     landCombos = set(landCombos)
     
-    bestLandSet = []
+    bestScore = deckCastibility(manaCosts, initLandSet)
+    bestLandSet = initLandSet.copy()
     for lc in landCombos:
         # Expand k-tuples into res
         res = [0, 0, 0, 0, 0]
@@ -172,7 +175,7 @@ def bestLands(manaCosts: list):
         if (dcRes > bestScore):
             bestLandSet = res
             bestScore = dcRes
-    # print("Best ", bestLandSet, bestScore)
+    print("Best ", bestLandSet, bestScore)
     return bestLandSet
 
     """
