@@ -1,4 +1,11 @@
+"""
+Code for the function findLandCombos toward the end of this file was converted
+and modified from Java code retrieved from
+https://algorithms.tutorialhorizon.com/find-all-unique-combinations-of-exact-k-numbers-from-1-to-9-with-sum-to-n/
+"""
+
 from math import factorial
+import itertools
 
 
 # n! / [k!(n-k)!] for (n choose k)
@@ -21,7 +28,7 @@ def LsHeuristic(manaCosts: list):
     """
     lands = [0,0,0,0,0]
     for elem in manaCosts:
-        lands = [lands[i] + elem[1][i] for i in range(0,5)]
+        lands = [lands[i] + elem[1][i] for i in range(5)]
     landSet = [round(x * 17 / sum(lands)) for x in lands]
     return landSet
 
@@ -38,7 +45,7 @@ def MVHG(pop,req,totalPop):
         req = (2, 2)
         totalPop = 40
     """
-    sampleSize = sum(req)
+    sampleSize = sum(req) + 7
     
     num = 1
     for N,k in zip(pop,req):
@@ -49,6 +56,7 @@ def MVHG(pop,req,totalPop):
             # print(pop,req)
             # exit()
         num *= binom(N,k)
+    num *= binom(totalPop - sum(pop), 7)
     
     den = binom(totalPop,sampleSize)
     # print(num)
@@ -61,8 +69,6 @@ def cardCastibility(landSet:list, manaCost:tuple):
         assumes that the mana cost of a card is less than the number of lands of
         the corresponding color(s) required. May need to update this function
         later.
-    TODO: lots of testing to make sure this function actually works!!!!
-          Especially the mana combos!!!!
 
     Keyword Arguments:
         landSet: tuple of lands. Of form (W,U,B,R,G), with 0 for no lands
@@ -80,6 +86,8 @@ def cardCastibility(landSet:list, manaCost:tuple):
     res = [0, 0, 0, 0, 0]
     for i in range(len(res)):
         lands[i] -= manaCost[1][i]
+        if (lands[i] < 0):
+            return 0
         res[i] += manaCost[1][i]
     combos = []
     # This is where the magic happens
@@ -88,7 +96,7 @@ def cardCastibility(landSet:list, manaCost:tuple):
     
     odds = 0
     for c in manacombinations:
-        odds += MVHG(lands, c, 40)
+        odds += MVHG(landSet, c, 40)
     
     return odds
 
@@ -116,6 +124,10 @@ def deckCastibility(manaCosts: list, lands: list):
 	return c
 
 def bestLands(manaCosts: list):
+    # Returns the optimal number of lands for the given list of mana costs for
+    # spells.
+    
+    
 #     best = LsHeuristic(cards)
 #     bestScore = deckCastibiliity(best)
     
@@ -123,21 +135,57 @@ def bestLands(manaCosts: list):
 #         if deckCastibiliity(thisLands) > bestScore:
 #             best = thisLands
 #             bestScore = deckCastibiliity(thisLands)
-
+    
 #     return best
-  bestLandSet = LsHeuristic(manaCosts)
-  bestScore = deckCastibility(manaCosts, bestLandSet)
+    
+    
+    initLandSet = LsHeuristic(manaCosts)
+    # print(initLandSet)
+    bestScore = deckCastibility(manaCosts, initLandSet)
+    
+    k = 0 # Number of colors this deck uses
+    for i in initLandSet:
+        if (i != 0):
+            k += 1
+    landSets = []
+    res = []
+    # Programmatically find combinations of numbers of k land types that add up
+    # to 17
+    findLandCombos(17, k, 0, 0, landSets, res)
+    landCombos = []
+    # Get all permutations of these combinations
+    for ls in landSets:
+        landCombos += list(itertools.permutations(ls))
+    # And remove duplicates by converting to set. Creates set of k-tuples
+    landCombos = set(landCombos)
+    
+    bestLandSet = []
+    for lc in landCombos:
+        # Expand k-tuples into res
+        res = [0, 0, 0, 0, 0]
+        j = 0
+        for i in range(len(res)):
+            if (initLandSet[i] != 0):
+                res[i] = lc[j]
+                j += 1
+        dcRes = deckCastibility(manaCosts, res)
+        if (dcRes > bestScore):
+            bestLandSet = res
+            bestScore = dcRes
+    # print("Best ", bestLandSet, bestScore)
+    return bestLandSet
 
-  landTypes = 0
-  for i in range(len(bestLandSet)):
+    """
+    landTypes = 0
+    for i in range(len(bestLandSet)):
     if bestLandSet[i] != 0:
       landTypes += 1
 
-  if landTypes == 1:
+    if landTypes == 1:
     return bestLandSet
 
 
-  elif landTypes == 2:
+    elif landTypes == 2:
     originalBestLandSet = bestLandSet.copy()
     testLandSet = bestLandSet.copy()
     raiseValue = True
@@ -186,8 +234,19 @@ def bestLands(manaCosts: list):
 
 
     return bestLandSet
+    """
+    
 
-
+def findLandCombos(n, k, sum, start, landCombos, res):
+    if (k == 0):
+        if (sum == n):
+            landCombos += [res]
+        return
+    
+    for i in range(start, n+1):
+        res += [i]
+        findLandCombos(n, k - 1, sum + i, i, landCombos, res.copy())
+        del res[-1]
 
 if __name__ == '__main__':
     p = (5,10,15)
