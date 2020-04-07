@@ -13,7 +13,6 @@ def mana_to_tuple(mana_costs: list):
 
 def parse_json(json_s):
     json_string = str(json_s)
-    # print(json_string)
     obj = json.loads(json_string)
     
     rawManaCostList = [x["manaCost"] for x in obj["cards"]]
@@ -27,12 +26,13 @@ def parse_json(json_s):
         cost = ((c.count('0')),t)
         manaCosts += [cost]
         # print(cost)
-
+    
     return hypergeo.bestLands(manaCosts)
 
 
 
-if __name__ == '__main__':
+
+def main():
     data = {
         "deckName":"tempName",
         "identity":"WUG",
@@ -132,4 +132,11 @@ if __name__ == '__main__':
         ]
     }
 
+    # print((type(data)))
+    # for k,v in data.items():
+        # print(k,type(v))
+    print(data["cards"] )
     # parse_json(json.dumps(data))
+
+if __name__ == '__main__':
+    main()
