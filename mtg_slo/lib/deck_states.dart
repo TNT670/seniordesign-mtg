@@ -4,8 +4,10 @@ import 'package:mtg_slo/card.dart';
 import 'package:mtg_slo/deck.dart';
 import 'package:mtg_slo/screens/manual_selection_screen/mana_button.dart';
 import 'package:mtg_slo/screens/manual_selection_screen/mana_button_deselect.dart';
+import 'package:mtg_slo/global_states.dart';
 
 class DeckStates extends ChangeNotifier {
+  GlobalStates globalStates;
   Deck deck = Deck("tempName");
   List<ManaButton> basicButtons = List(), advancedButtons = List();
   List<ManaButtonDeselect> manaCost = List();
@@ -42,6 +44,10 @@ class DeckStates extends ChangeNotifier {
   void softClear() {
     manaCost.clear();
     _costCode = "";
+  }
+
+  void setFormat(String format) {
+    deck.setFormat(format);
   }
 
   void setCode(String code) {

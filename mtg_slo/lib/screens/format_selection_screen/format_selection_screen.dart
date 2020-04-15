@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:mtg_slo/global_states.dart';
+import 'package:mtg_slo/deck_states.dart';
 
 class FormatSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final globalStates = Provider.of<GlobalStates>(context);
+    final deckStates = Provider.of<DeckStates>(context);
     return Scaffold(
       appBar: AppBar(
         title: RichText(
@@ -28,6 +30,7 @@ class FormatSelectionScreen extends StatelessWidget {
               color: Colors.redAccent,
               onPressed: () {
                 globalStates.setFormat("Standard 40");
+                deckStates.setFormat("Standard 40");
                 Navigator.pushNamed(context, '/mana');
               },
               child: RichText(
@@ -46,6 +49,7 @@ class FormatSelectionScreen extends StatelessWidget {
               color: Colors.blueAccent,
               onPressed: () {
                 globalStates.setFormat("Standard 60");
+                deckStates.setFormat("Standard 60");
                 Navigator.pushNamed(context, '/mana');
               },
               child: RichText(
@@ -64,6 +68,7 @@ class FormatSelectionScreen extends StatelessWidget {
               color: Colors.greenAccent,
               onPressed: () {
                 globalStates.setFormat("Commander");
+                deckStates.setFormat("Commander");
                 Navigator.pushNamed(context, '/mana');
               },
               child: RichText(

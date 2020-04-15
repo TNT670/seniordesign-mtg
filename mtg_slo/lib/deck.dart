@@ -1,7 +1,9 @@
 import 'package:mtg_slo/card.dart';
+import 'package:mtg_slo/global_states.dart';
 
 class Deck {
-  String deckName, identity;
+  GlobalStates globalStates;
+  String deckName, identity, format;
   List<MTGCard> cards = List();
 
   Deck(this.deckName);
@@ -14,6 +16,10 @@ class Deck {
     cards.clear();
   }
 
+  void setFormat(String format) {
+    format = format;
+  }
+
   void setIdentity(String code) {
     identity = code;
   }
@@ -22,6 +28,7 @@ class Deck {
     List<Map> cards =
         this.cards != null ? this.cards.map((i) => i.toJson()).toList() : null;
     return {
+      'format': format,
       'deckName': deckName,
       'identity': identity,
       'cards': cards,

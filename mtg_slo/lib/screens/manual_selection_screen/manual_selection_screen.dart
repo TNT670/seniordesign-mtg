@@ -162,7 +162,8 @@ class ManualSelectionScreen extends StatelessWidget {
             // print(json);
             var tuple = await results.parseJson(deckStates.getDeck);
             String tupleString = await tuple.getString();
-            tupleString = tupleString.substring(tupleString.length - 16, tupleString.length);
+            print(tupleString);
+            tupleString = tupleString.substring(tupleString.lastIndexOf('['), tupleString.length);
             print("tupleString = $tupleString");
             var list = json.decode(tupleString);
             print("LIST = $list");

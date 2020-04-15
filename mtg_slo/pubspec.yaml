@@ -23,7 +23,7 @@ dependencies:
   starflut: any
   permission_handler: '^4.3.0'
 
-  flutter_svg: ^0.17.1
+  flutter_svg: any
   provider: ^3.0.0
   path_provider: ^0.4.1
 
