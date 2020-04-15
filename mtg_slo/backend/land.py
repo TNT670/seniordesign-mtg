@@ -102,8 +102,8 @@ def getLandSets(numColors,numLandsNeeded,initLandSet,debug):
 
 
 def LsHeuristic(manaCosts: list, numLandsNeeded = 17):
-    """ Returns a list representing the land set. Rounds up; the returned list
-        should add up to either 17 or 18.
+    """ Returns a list representing the land set. The returned list should sum
+        to the value of numLandsNeeded.
     
     Keyword Arguments:
         manaCosts: list of mana costs of the form (generic, (W,U,B,R,G)).

@@ -1,9 +1,3 @@
-"""
-Code for the function findLandCombos toward the end of this file was converted
-and modified from Java code retrieved from
-https://algorithms.tutorialhorizon.com/find-all-unique-combinations-of-exact-k-numbers-from-1-to-9-with-sum-to-n/
-"""
-
 from math import factorial
 
 # n! / [k!(n-k)!] for (n choose k)

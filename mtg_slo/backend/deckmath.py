@@ -1,3 +1,9 @@
+"""
+Code for the function findLandCombos at the top of this file was converted and
+modified from Java code retrieved from
+https://algorithms.tutorialhorizon.com/find-all-unique-combinations-of-exact-k-numbers-from-1-to-9-with-sum-to-n/
+"""
+
 import hypergeo
 
 def findLandCombos(n, k, total, start, landCombos, res):
