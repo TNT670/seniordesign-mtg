@@ -2,12 +2,12 @@ from parse_json import parse_json
 import json
 import testData
 
-def transform(inputCards:list,targLands:int):
+def transform(inputCards:list,inputFormat:str):
 	jsonSetup = {
 		'deckName':'noName',
 		'identity':'currentlyDoesntMatter',
 		'cards':[],
-		'targetLands':targLands
+		'format':inputFormat
 	}
 	
 	for count,cost in inputCards:
@@ -21,12 +21,10 @@ def transform(inputCards:list,targLands:int):
 	
 
 def main():
-	x = testData.issue1
-	x = transform(x,40-len(x))
-	# print(x['cards'])
-	# for (2,"0 0 R G "),
+	tD = testData.evenSplit
+	x = transform(tD[1],tD[0])	
 	y = parse_json(json.dumps(x), debug = True)
-	print(y)
+	
 
 if __name__ == '__main__':
 	main()

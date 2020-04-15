@@ -1,5 +1,32 @@
 import json
-import hypergeo
+import land
+
+
+def parse_json(json_s, debug = False):
+    json_string = str(json_s)
+    
+    jDict = json.loads(json_string)
+    
+    rawManaCostList = [x["manaCost"] for x in jDict["cards"]]
+    # ['0 0 0 W U G ', 'X GU GW ', 'X WU WP ']
+
+    mana_tuples = mana_to_tuple(rawManaCostList)
+    # List of 5-tuples, representing colored mana cost of that card
+    
+    manaCosts = []
+    for c, t in zip(rawManaCostList, mana_tuples):
+        cost = ((c.count('0')),t)
+        manaCosts += [cost]
+
+    deckCountDict = {
+        'Standard 40': 40,
+        'Standard 60': 60,
+        'Commander': 100
+    }
+    totalDeckSize = deckCountDict[jDict['format']]
+
+    return land.bestLands(manaCosts, totalDeckSize, debug)
+
 
 def mana_to_tuple(mana_costs: list):
     mana_tuples = []
@@ -10,29 +37,6 @@ def mana_to_tuple(mana_costs: list):
             mana_tuple = mana_tuple + (card.count(symbol),)
         mana_tuples.append(mana_tuple)
     return mana_tuples
-
-def parse_json(json_s, debug = False):
-    json_string = str(json_s)
-    
-    jDict = json.loads(json_string)
-    
-    if 'targetLands' not in jDict.keys():
-        jDict['targetLands'] = 17
-
-    rawManaCostList = [x["manaCost"] for x in jDict["cards"]]
-    # ['0 0 0 W U G ', 'X GU GW ', 'X WU WP ']
-
-    mana_tuples = mana_to_tuple(rawManaCostList)
-    # 5 tuple of count of color appearances
-    manaCosts = []
-    for c, t in zip(rawManaCostList, mana_tuples):
-        # print("{}\t{}".format(c, t))
-        cost = ((c.count('0')),t)
-        manaCosts += [cost]
-        # print(cost)
-    
-    return hypergeo.bestLands(manaCosts, jDict['targetLands'], debug)
-
 
 
 
