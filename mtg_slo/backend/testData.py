@@ -39,9 +39,21 @@ issue1 = [
     (1,"0 0 0 0 0 U U")
 ]
 
+commander = [
+    (5,"0 0 0 R R "),
+    (5,"0 0 R G "),
+    (5,"0 0 G "),
+    (10,"0 0 R "),
+    (10,"G G "),
+    (10,"0 G "),
+    (10,"0 R "),
+    (5,"G "),
+]
+
 if __name__ == '__main__':
     # Confirm decks are of size
     assert sum([count for count,cost in evenSplit]) == 23
     assert sum([count for count,cost in tinyTri]) == 23
-    assert sum([count for count,cost in issue1]) == 23
+    assert sum([count for count,cost in issue1]) == 40-17
+    assert sum([count for count,cost in commander]) == 100-40
     print('All asserts OK')

@@ -11,11 +11,15 @@ def mana_to_tuple(mana_costs: list):
         mana_tuples.append(mana_tuple)
     return mana_tuples
 
-def parse_json(json_s):
+def parse_json(json_s, debug = False):
     json_string = str(json_s)
-    obj = json.loads(json_string)
     
-    rawManaCostList = [x["manaCost"] for x in obj["cards"]]
+    jDict = json.loads(json_string)
+    
+    if 'targetLands' not in jDict.keys():
+        jDict['targetLands'] = 17
+
+    rawManaCostList = [x["manaCost"] for x in jDict["cards"]]
     # ['0 0 0 W U G ', 'X GU GW ', 'X WU WP ']
 
     mana_tuples = mana_to_tuple(rawManaCostList)
@@ -27,7 +31,7 @@ def parse_json(json_s):
         manaCosts += [cost]
         # print(cost)
     
-    return hypergeo.bestLands(manaCosts)
+    return hypergeo.bestLands(manaCosts, jDict['targetLands'], debug)
 
 
 
