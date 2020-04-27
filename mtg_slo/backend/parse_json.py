@@ -15,7 +15,8 @@ def parse_json(json_s, debug = False):
     
     manaCosts = []
     for c, t in zip(rawManaCostList, mana_tuples):
-        cost = ((c.count('0')),t)
+        generics = int(c[1:c.index('}')]) if c[1].isdigit() else 0
+        cost = ((generics),t)
         manaCosts += [cost]
 
     deckCountDict = {
