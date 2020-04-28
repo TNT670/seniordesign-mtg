@@ -2,9 +2,8 @@ import 'package:mtg_slo/card.dart';
 import 'package:mtg_slo/global_states.dart';
 
 class Deck {
-  GlobalStates globalStates;
   String deckName, identity, format;
-  List<MTGCard> cards = List();
+  List<MTGCard> cards = List<MTGCard>();
 
   Deck(this.deckName);
 
@@ -36,4 +35,5 @@ class Deck {
   }
 
   List<MTGCard> get getCards => cards;
+  int get length => this.cards.length;
 }

@@ -40,14 +40,20 @@ class Results extends ChangeNotifier {
       }
       await Starflut.copyFileFromAssets(
           "python3.6.zip", "flutter_assets/backend", null); //desRelatePath must be null
+
+      /* load backend python files pt. 1 */
       await Starflut.copyFileFromAssets(
           "parse_json.py", "flutter_assets/backend", null);
       await Starflut.copyFileFromAssets(
           "hypergeo.py", "flutter_assets/backend", null);
       await Starflut.copyFileFromAssets(
+          "deckmath.py", "flutter_assets/backend", null);
+      await Starflut.copyFileFromAssets(
           "test.py", "flutter_assets/backend", null);
       await Starflut.copyFileFromAssets(
           "testData.py", "flutter_assets/backend", null);
+      await Starflut.copyFileFromAssets(
+          "land.py", "flutter_assets/backend", null);
     }
 
     String docPath = await Starflut.getDocumentPath();
@@ -59,13 +65,22 @@ class Results extends ChangeNotifier {
     dynamic rr1 = await SrvGroup.initRaw("python36", Service);
     print("initRaw = $rr1");
 
+    /* load backend python scripts pt 2 */
     var Result = await SrvGroup.loadRawModule(
         "python", "", resPath + "/hypergeo.py", false);
     print("hypergeo= $Result");
 
     Result = await SrvGroup.loadRawModule(
+        "python", "", resPath + "/deckmath.py", false);
+    print("deckmath= $Result");
+
+    Result = await SrvGroup.loadRawModule(
         "python", "", resPath + "/testData.py", false);
     print("structs= $Result");
+
+    Result = await SrvGroup.loadRawModule(
+        "python", "", resPath + "/land.py", false);
+    print("land= $Result");
 
     Result = await SrvGroup.loadRawModule(
         "python", "", resPath + "/parse_json.py", false);

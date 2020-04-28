@@ -72,7 +72,7 @@ class _InputSelectionState extends State<InputSelectionScreen> {
                 color: Colors.orangeAccent,
                 onPressed: () {
                   deckStates.clear(); // TODO: maybe move this to clear only when the deck's color identity changes?
-                  Navigator.pushNamed(context, '/manual');
+                  Navigator.pushNamed(context, '/mana');
                 },
                 child: RichText(
                   text: TextSpan(
@@ -90,6 +90,8 @@ class _InputSelectionState extends State<InputSelectionScreen> {
               child: FlatButton(
                 color: Colors.purpleAccent,
                 onPressed: () {
+                  deckStates.clear();
+                  Navigator.pushNamed(context, '/text');
                 },
                 child: RichText(
                     text: TextSpan(

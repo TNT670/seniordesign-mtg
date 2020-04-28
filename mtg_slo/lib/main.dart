@@ -10,6 +10,9 @@ import 'package:mtg_slo/screens/input_method_screen/input_method_screen.dart';
 import 'package:mtg_slo/screens/manual_selection_screen/manual_selection_screen.dart';
 import 'package:mtg_slo/screens/results_screen/results_screen.dart';
 import 'package:mtg_slo/screens/camera_screen/camera.dart';
+import 'package:mtg_slo/screens/text_entry_screen/text_entry_screen.dart';
+import 'package:mtg_slo/screens/text_entry_screen/text_entry_processing.dart';
+import 'package:mtg_slo/screens/deck_view_screen/deck_view_screen.dart';
 
 void main() {
   runApp(
@@ -18,6 +21,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => GlobalStates()),
         ChangeNotifierProvider(create: (context) => DeckStates()),
         ChangeNotifierProvider(create: (context) => Results()),
+        ChangeNotifierProvider(create: (context) => TextEntryProcessing()),
       ],
       child: App(),
     ),
@@ -32,14 +36,16 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple
       ),
-      initialRoute: '/',
+      initialRoute: '/input',
       routes: {
-        '/': (context) => FormatSelectionScreen(),
+        '/format': (context) => FormatSelectionScreen(),
         '/mana': (context) => ManaSelectionScreen(),
         '/input': (context) => InputSelectionScreen(),
         '/manual': (context) => ManualSelectionScreen(),
         '/results': (context) => ResultsScreen(),
         '/camera': (context) => CameraScreen(),
+        '/text': (context) => TextEntryScreen(),
+        '/deck': (context) => DeckViewScreen(),
       }
     );
   }

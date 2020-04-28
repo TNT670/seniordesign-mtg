@@ -62,7 +62,7 @@ class ManaSelectionScreen extends StatelessWidget {
           }
           else {
             deckStates.setCode(globalStates.getCode);
-            Navigator.pushNamed(context, '/input');
+            Navigator.pushNamed(context, '/manual');
           }
         },
         label: Text('Next'),

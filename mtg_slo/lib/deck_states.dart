@@ -9,9 +9,10 @@ import 'package:mtg_slo/global_states.dart';
 class DeckStates extends ChangeNotifier {
   GlobalStates globalStates;
   Deck deck = Deck("tempName");
+  List<Deck> decks = List<Deck>();
   List<ManaButton> basicButtons = List(), advancedButtons = List();
   List<ManaButtonDeselect> manaCost = List();
-  String _code, _costCode;
+  String _code, _costCode="";
   int _count = 1, _totalCount;
 
   final weightController = TextEditingController();
@@ -109,8 +110,8 @@ class DeckStates extends ChangeNotifier {
   }
 
   void setMana() {
-    if ('0'.allMatches(_costCode).length > 0)
-      manaCost.add(ManaButtonDeselect('assets/icons/' + ('0'.allMatches(_costCode).length-1).toString() + '.svg'));
+    if (new RegExp(r"[^{\}A-Z]+(?=})").hasMatch(_costCode))
+      manaCost.add(ManaButtonDeselect('assets/icons/' + new RegExp(r"[^{\}A-Z]+(?=})").stringMatch(_costCode) + '.svg'));
 
     for (int i=0; i<otherCodes.length; i++) {
       for (int j=0; j<new RegExp(r'\b' + otherCodes[i] + r'\b').allMatches(_costCode).length; j++) {
@@ -145,16 +146,18 @@ class DeckStates extends ChangeNotifier {
   void addMana(String code) {
     manaCost.clear();
 
-    if ('0'.allMatches(_costCode).length <= 20)
-      _costCode += code + ' ';
+    if (new RegExp(r"[^{\}A-Z]+(?=})").hasMatch(_costCode) && int.tryParse(code) is int)
+      _costCode = _costCode.replaceAll(new RegExp(r"[^{\}A-Z]+(?=})"),
+          (int.parse(new RegExp(r"[^{\}A-Z]+(?=})").stringMatch(_costCode)) + 1).toString());
+    else
+      _costCode += '{' + code + '}';
 
     if (otherCodes[0].contains(code)) {
-      _costCode = _costCode.replaceAll(new RegExp(r'\b0( )*\b'), '');
-      _costCode = _costCode.replaceAll(new RegExp(r'\bX \b'), '');
+      _costCode = _costCode.replaceAll(new RegExp(r'[^{\}A-WY-Z]+(?=})'), '');
     }
 
     if (numCodes.contains(code)) {
-      _costCode = _costCode.replaceAll(new RegExp(r'\bX( )*\b'), '');
+      _costCode = _costCode.replaceAll(new RegExp(r'[^{\}A-WY-Z0-9]+(?=})'), '');
     }
 
     print(_costCode);
@@ -184,7 +187,7 @@ class DeckStates extends ChangeNotifier {
   bool addCard(String manaCost) {
     if (_count < _totalCount && manaCost != "") {
       for (int i=0; i<int.parse(weightController.text); i++) {
-        deck.addCard(MTGCard(manaCost));
+        deck.addCard(MTGCard.manaCost(manaCost));
       }
       _count += int.parse(weightController.text);
       weightController.text = '1';
