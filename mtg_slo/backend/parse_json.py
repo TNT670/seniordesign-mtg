@@ -7,8 +7,8 @@ def parse_json(json_s, debug = False):
     
     jDict = json.loads(json_string)
     
-    rawManaCostList = [x["manaCost"] for x in jDict["cards"]]
-    # ['0 0 0 W U G ', 'X GU GW ', 'X WU WP ']
+    rawManaCostList = [card['mana_cost'] for card in jDict['cards']]
+    # ['{3}{W}{U}{G}', ...]
 
     mana_tuples = mana_to_tuple(rawManaCostList)
     # List of 5-tuples, representing colored mana cost of that card

@@ -5,14 +5,14 @@ import testData
 def transform(inputCards:list,inputFormat:str):
 	jsonSetup = {
 		'deckName':'noName',
-		'identity':'currentlyDoesntMatter',
+		'identity':'only matters in app',
 		'cards':[],
 		'format':inputFormat
 	}
 	
 	for count,cost in inputCards:
 		for _ in range(count):
-			jsonSetup['cards'] += [{'cardName':'','manaCost':cost}]
+			jsonSetup['cards'] += [{'cardName':'','mana_cost':cost}]
 
 	return jsonSetup
 
