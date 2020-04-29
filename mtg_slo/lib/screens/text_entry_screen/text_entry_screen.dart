@@ -14,7 +14,7 @@ class TextEntryScreen extends StatefulWidget {
 }
 
 class _TextEntryScreenState extends State<TextEntryScreen> {
-  String _boxText;
+  String _boxText, _currentCard;
   FocusNode boxFocusNode;
   bool _loading;
 
@@ -22,6 +22,7 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
   void initState() {
     super.initState();
     _loading = false;
+    _currentCard = "Input deck in MTG: Online format";
     boxFocusNode = FocusNode();
   }
 
@@ -53,7 +54,7 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
           padding: EdgeInsets.all(16.0),
           child: Column(
             children: <Widget> [
-              Text('Paste your deck in Magic Online Format'),
+              Text('$_currentCard'),
               Expanded(
                 flex: 3,
                 child: !_loading ? Container(
@@ -70,11 +71,11 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
                       },
                       )
                 ) : FractionallySizedBox(
-                    heightFactor: .25,
-                    widthFactor: .33,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 25,
-                    )
+                        heightFactor: .25,
+                        widthFactor: .33,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 25,
+                        )
                 )
               )
             ]
@@ -95,13 +96,15 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
           Deck cardListObjFinal = Deck("tempname");
 
           for (var key in cardListMap.keys) {
+            setState(() { _currentCard = key;});
             cardListObj.add(await textEntryProcessing.fetchCards(key, cardListMap[key]));
           }
 
           for (var card in cardListObj) {
             if (!card.getTypeLine.contains('Land'))
-              for (int i=0; i<card.numCards; i++)
+              for (int i=0; i<card.numCards; i++) {
                 cardListObjFinal.addCard(card);
+              }
           }
 
           print(cardListObjFinal.length);
