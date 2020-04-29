@@ -8,16 +8,15 @@ import 'package:mtg_slo/deck.dart';
 class CardView extends StatefulWidget {
 
   MTGCard _card = MTGCard();
-  int cardCount = 0;
   CardView(this._card);
+
+  String get getCardName => _card.getCardName;
 
   @override
   _CardViewState createState() => _CardViewState();
 }
 
 class _CardViewState extends State<CardView> {
-
-
 
   @override
   void initState() {
@@ -40,7 +39,7 @@ class _CardViewState extends State<CardView> {
               padding: const EdgeInsets.all(5.0),
               child: RichText(
               text: TextSpan(
-                text: "${widget.cardCount.toString()}\t${widget._card.getCardName}",
+                text: "${widget._card.numCards.toString()}\t${widget._card.getCardName}",
                 style: TextStyle(
                   fontFamily: 'Magic',
                   color: Colors.grey,

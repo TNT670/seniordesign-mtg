@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
+import 'package:mtg_slo/screens/results_screen/results.dart';
 import 'package:provider/provider.dart';
 
 import 'package:mtg_slo/deck.dart';
 import 'package:mtg_slo/deck_states.dart';
 import 'package:mtg_slo/screens/deck_view_screen/card_view.dart';
 import '../../card.dart';
+import '../../global_states.dart';
 import 'image_popup.dart';
 
 class DeckViewScreen extends StatefulWidget {
@@ -31,21 +35,12 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
     })*/
 
     for (var i=0; i<deck.getCards.length; i++) {
-      if (widget._existingCards.contains(deck.getCards[i].getCardName))
-        widget._cardViews.elementAt(widget._cardViews.length-1).cardCount++;
-      else {
-        widget._cardViews.add(CardView(deck.getCards[i]));
-        widget._existingCards.add(deck.getCards[i].getCardName);
-        widget._existingLinks.add(deck.getCards[i].getImagePath);
-        widget._cardViews.elementAt(widget._cardViews.length-1).cardCount++;
+      widget._cardViews.add(CardView(deck.getCards[i]));
+      widget._existingCards.add(deck.getCards[i].getCardName);
+      widget._existingLinks.add(deck.getCards[i].getImagePath);
       }
-    }
 
     //print(widget._existingCards);
-  }
-
-  List<Widget>prepareCardWidgets(List<MTGCard> card) {
-
   }
 
   @override
@@ -60,8 +55,10 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final globalStates = Provider.of<GlobalStates>(context);
     final deckStates = Provider.of<DeckStates>(context);
-    print(deckStates.decks[0].toJson().toString());
+    final results = Provider.of<Results>(context);
+    print(deckStates.decks[0].toJson());
     getCards(deckStates.decks[0]);
     return Scaffold(
       appBar: AppBar(
@@ -81,6 +78,7 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
         shrinkWrap: true,
         itemCount: widget._cardViews == null ? 0 : widget._cardViews.length,
         itemBuilder: (BuildContext context, int index) {
+          final cardView = widget._cardViews[index];
 
           return new GestureDetector(
             onTap: () async {
@@ -89,8 +87,16 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
                 builder: (_) => ImagePopup(index, widget._existingLinks)
               );
             },
-              child: new Container(
-                height: 125,
+              child: new Dismissible(
+                key: Key(cardView.getCardName),
+                onDismissed: (direction) {
+                  setState(() {
+                    widget._cardViews.removeAt(index);
+                  });
+
+                  Scaffold.of(context)
+                  .showSnackBar(SnackBar(content: Text("Card removed.")));
+                },
                 child: new Card(
                   semanticContainer: true,
 
@@ -100,7 +106,24 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
           );
         }
 
-      )
+      ),
+    floatingActionButton: FloatingActionButton.extended(
+      onPressed: () async {
+        var tuple = await results.parseJson(deckStates.decks[0]);
+        String tupleString = await tuple.getString();
+        print(tupleString);
+        tupleString = tupleString.substring(tupleString.lastIndexOf('['), tupleString.length);
+        print("tupleString = $tupleString");
+        var list = json.decode(tupleString);
+        print("LIST = $list");
+        globalStates.setTupleFromPython(list);
+        globalStates.setResults();
+        // deckStates.clear();
+        Navigator.pushNamed(context, '/results');
+      },
+      label: Text('Next'),
+      icon: Icon(Icons.arrow_forward),
+    )
     /*ReorderableListView(
         onReorder: (oldIndex, newIndex) {
           setState(() {

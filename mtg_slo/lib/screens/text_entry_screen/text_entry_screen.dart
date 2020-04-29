@@ -90,17 +90,18 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
             _loading = !_loading;
           });
 
-          var cardListText = textEntryProcessing.processText(_boxText);
+          var cardListMap = textEntryProcessing.processText(_boxText);
           var cardListObj = List<MTGCard>();
           Deck cardListObjFinal = Deck("tempname");
 
-          for (var card in cardListText) {
-            cardListObj.add(await textEntryProcessing.fetchCards(card));
+          for (var key in cardListMap.keys) {
+            cardListObj.add(await textEntryProcessing.fetchCards(key, cardListMap[key]));
           }
 
           for (var card in cardListObj) {
             if (!card.getTypeLine.contains('Land'))
-              cardListObjFinal.addCard(card);
+              for (int i=0; i<card.numCards; i++)
+                cardListObjFinal.addCard(card);
           }
 
           print(cardListObjFinal.length);
@@ -108,6 +109,13 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
             print(card.getCardName);
           } */
           deckStates.decks.add(cardListObjFinal);
+
+          if (cardListObjFinal.length < 40 )
+            deckStates.decks[0].setFormat("Standard 40");
+          else if (cardListObjFinal.length < 60)
+            deckStates.decks[0].setFormat("Standard 60");
+          else
+            deckStates.decks[0].setFormat("Commander");
 
           // print(deckStates.decks[0].toJson());
 

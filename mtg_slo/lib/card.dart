@@ -1,5 +1,6 @@
 class MTGCard {
   String cardName, manaCost, typeLine, imagePath;
+  int numCards;
   // String weight;
 
   MTGCard({this.cardName="", this.manaCost="", this.typeLine="", this.imagePath=""});
@@ -20,6 +21,10 @@ class MTGCard {
       typeLine: json['type_line'],
       imagePath: json['image_uris']['normal'],
     );
+  }
+
+  void setCardCount(int cardNum) {
+    numCards = cardNum;
   }
 
   String get getCardName => cardName;

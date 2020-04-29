@@ -15,8 +15,8 @@ class Deck {
     cards.clear();
   }
 
-  void setFormat(String format) {
-    format = format;
+  void setFormat(String f) {
+    format = f;
   }
 
   void setIdentity(String code) {

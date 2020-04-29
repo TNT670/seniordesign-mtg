@@ -9,6 +9,7 @@ class ShowMana extends StatelessWidget {
 
   ShowMana(this._cost, BuildContext context) {
     for (var x in regExp.allMatches(_cost).map((m) => m[0])) {
+      x = x.replaceAll("/", "");
       _images.add(new Container(
           child: SvgPicture.asset('assets/icons/' + x + '.svg', height: 22.5, width: 22.5)
           )

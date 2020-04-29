@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 import 'package:mtg_slo/card.dart';
 import 'package:mtg_slo/deck.dart';
@@ -14,8 +15,13 @@ class DeckStates extends ChangeNotifier {
   List<ManaButtonDeselect> manaCost = List();
   String _code, _costCode="";
   int _count = 1, _totalCount;
+  File _image;
 
   final weightController = TextEditingController();
+
+  void setImage(File image) {
+    _image = image;
+  }
 
   final List<String> dualCodes = [
     'BG', 'BR', 'GU', 'GW', 'RG', 'RW', 'UB', 'UR', 'WB', 'WU'

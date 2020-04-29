@@ -9,10 +9,10 @@ class TextEntryProcessing extends ChangeNotifier {
 
   String searchPrefix = "https://api.scryfall.com/cards/named?fuzzy=";
 
-  List<String> processText(String boxText) {
+  Map<String, int> processText(String boxText) {
 
     var textLines = boxText.split('\n');
-    var finalCards = List<String>();
+    var finalCards = Map<String, int>();
     for (var line in textLines) {
       var numCheck = line.split(' ');
       String num = numCheck[0];
@@ -23,24 +23,29 @@ class TextEntryProcessing extends ChangeNotifier {
 
         // if (numCheck.join())
 
-        for (int i = 0; i < int.tryParse(num); i++) {
-          finalCards.add(searchPrefix + numCheck.join('+'));
-        }
+        finalCards[searchPrefix + numCheck.join('+')] = int.parse(num);
         var cardName = numCheck.join();
       }
       /* Computer vision? */
-      else
+      else if (line == "Sideboard")
         break;
+      else
+        finalCards[searchPrefix + numCheck.join('+')] = 1;
     }
+    print("******");
     print(finalCards);
     return finalCards;
   }
 
-  Future<MTGCard> fetchCards(String cardLink) async {
+  Future<MTGCard> fetchCards(String cardLink, int cardNum) async {
     final response = await http.get(cardLink);
 
+    print(cardLink);
+
     if (response.statusCode == 200) {
-      return MTGCard.fromJson(json.decode(response.body));
+      var card = MTGCard.fromJson(json.decode(response.body));
+      card.setCardCount(cardNum);
+      return card;
     } else {
       throw Exception('Failed to load card');
     }
