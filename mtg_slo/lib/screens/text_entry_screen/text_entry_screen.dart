@@ -6,6 +6,7 @@ import 'package:mtg_slo/card.dart';
 import 'package:mtg_slo/deck_states.dart';
 
 import '../../deck.dart';
+import '../../mtg_text.dart';
 
 
 class TextEntryScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
   void initState() {
     super.initState();
     _loading = false;
-    _currentCard = "Input deck in MTG: Online format";
+    _currentCard = "";
     boxFocusNode = FocusNode();
   }
 
@@ -52,14 +53,16 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
           padding: EdgeInsets.all(16.0),
           child: Column(
             children: <Widget> [
-              Text('Paste your deck in Magic Online Format',
-                textAlign: TextAlign.center,
-                style: new TextStyle(
-                  fontSize: 40.0,
-                ),),
-              Text('$_currentCard'),
               Expanded(
-                flex: 3,
+                flex: 4,
+                child: MTGText("Paste your deck in Magic Online Format", 35.0, Colors.black87, TextAlign.center),
+              ),
+              Expanded(
+                flex: 1,
+                child: Text('$_currentCard')
+              ),
+              Expanded(
+                flex: 6,
                 child: !_loading ? Container(
                     child: TextField(
                       textAlignVertical: TextAlignVertical.bottom,
@@ -127,6 +130,10 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
           // print(deckStates.decks[0].toJson());
 
           Navigator.pushNamed(context, '/deck');
+
+          setState(() {
+            _loading = !_loading;
+          });
 
         },
         backgroundColor: Color(0xff990d35),

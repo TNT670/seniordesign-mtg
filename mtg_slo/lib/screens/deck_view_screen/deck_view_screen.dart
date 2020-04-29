@@ -16,6 +16,7 @@ class DeckViewScreen extends StatefulWidget {
   List<CardView> _cardViews = new List<CardView>();
   List<String> _existingCards = new List<String>();
   List<String> _existingLinks = new List<String>();
+  bool _loading;
 
 
   @override
@@ -48,6 +49,7 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
   @override
   void initState() {
     super.initState();
+    widget._loading = false;
   }
 
   @override
@@ -74,7 +76,7 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
           )
         ),
       ),
-      body: new ListView.builder(
+      body: !widget._loading ? new ListView.builder(
         shrinkWrap: true,
         itemCount: widget._cardViews == null ? 0 : widget._cardViews.length,
         itemBuilder: (BuildContext context, int index) {
@@ -91,7 +93,7 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
                 key: Key(cardView.getCardName),
                 onDismissed: (direction) {
                   setState(() {
-                    widget._cardViews.removeAt(index);
+                    // widget._cardViews.removeAt(index);
                   });
 
                   Scaffold.of(context)
@@ -106,9 +108,19 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
           );
         }
 
-      ),
+      ) : Center(child: FractionallySizedBox(
+          heightFactor: .75,
+          widthFactor: .75,
+          child: CircularProgressIndicator(
+            strokeWidth: 25,
+          )
+      )),
     floatingActionButton: FloatingActionButton.extended(
       onPressed: () async {
+        setState(() {
+          widget._loading = !widget._loading;
+        });
+
         var tuple = await results.parseJson(deckStates.decks[0]);
         String tupleString = await tuple.getString();
         print(tupleString);
@@ -119,7 +131,12 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
         globalStates.setTupleFromPython(list);
         globalStates.setResults();
         // deckStates.clear();
+
         Navigator.pushNamed(context, '/results');
+
+        setState(() {
+          widget._loading = !widget._loading;
+        });
       },
       backgroundColor: Color(0xff990d35),
       label: Text('Next'),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../mtg_text.dart';
+
 class ResultsRow extends StatelessWidget {
   final String _landColor;
   final int _landCount;
@@ -36,33 +38,15 @@ class ResultsRow extends StatelessWidget {
       children: [
         Expanded(
           flex: 1,
-          child: Text(""),
-        ),
-        Expanded(
-          flex: 1,
           child: Padding(
-            padding: new EdgeInsets.only(left: 15.0),
-            child: RichText(
-            text: TextSpan(
-              text: _landCount.toString() + "\t" + getLandName(),
-              style: TextStyle(
-                fontFamily: 'Magic',
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 15.0,
-              )
-            )
-            )
+            padding: new EdgeInsets.only(left: 30.0),
+            child: MTGText(_landCount.toString() + "\t\t\t" + getLandName(), 25.0, Colors.black87)
           )
         ),
         Expanded(
           flex: 1,
           child: _icon,
         ),
-        Expanded(
-          flex: 1,
-          child: Text(""),
-        )
       ]
     );
   }

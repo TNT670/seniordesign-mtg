@@ -4,6 +4,8 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'package:mtg_slo/deck_states.dart';
 
+import '../../mtg_text.dart';
+
 // This screen is stateful in order to properly check permissions. Stateful
 // screens/widgets are useful for updating information pertinent to one screen
 // only.
@@ -54,27 +56,19 @@ class _InputSelectionState extends State<InputSelectionScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff990d35),
-        title: RichText(
-            text: TextSpan(
-                text: "MTG Deck Tuner",
-                style: TextStyle(
-                  color: Color(0xffFFF8E8), fontSize: 20.0,
-                )
-            )
-        ),
+        title: MTGText("MTG Land Optimizer", 20.0),
       ),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 125),
-            Text("Select an input method",
-              textAlign: TextAlign.center,
-              style: new TextStyle(
-                fontSize: 50.0,
+            Expanded(
+              flex: 3,
+              child: Container(
+                alignment: Alignment.center,
+                child: MTGText("Select an input method", 35.0, Colors.black87, TextAlign.center),
               ),
             ),
-            SizedBox(height: 125),
             Expanded(
               flex: 1,
               child: Padding(
@@ -139,7 +133,6 @@ class _InputSelectionState extends State<InputSelectionScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 8),
           ]
       ),
     );
