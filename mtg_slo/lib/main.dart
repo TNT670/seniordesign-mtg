@@ -14,6 +14,22 @@ import 'package:mtg_slo/screens/text_entry_screen/text_entry_screen.dart';
 import 'package:mtg_slo/screens/text_entry_screen/text_entry_processing.dart';
 import 'package:mtg_slo/screens/deck_view_screen/deck_view_screen.dart';
 
+Map<int, Color> color =
+{
+  50:Color.fromRGBO(136,14,79, .1),
+  100:Color.fromRGBO(136,14,79, .2),
+  200:Color.fromRGBO(136,14,79, .3),
+  300:Color.fromRGBO(136,14,79, .4),
+  400:Color.fromRGBO(136,14,79, .5),
+  500:Color.fromRGBO(136,14,79, .6),
+  600:Color.fromRGBO(136,14,79, .7),
+  700:Color.fromRGBO(136,14,79, .8),
+  800:Color.fromRGBO(136,14,79, .9),
+  900:Color.fromRGBO(136,14,79, 1),
+};
+
+MaterialColor colorCustom = MaterialColor(0xff990d35, color);
+
 void main() {
   runApp(
     MultiProvider(
@@ -34,7 +50,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'MTG: SLO',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple
+        primarySwatch: colorCustom,
       ),
       initialRoute: '/input',
       routes: {

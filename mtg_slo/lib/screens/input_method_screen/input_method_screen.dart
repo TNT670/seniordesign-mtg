@@ -53,11 +53,12 @@ class _InputSelectionState extends State<InputSelectionScreen> {
     final deckStates = Provider.of<DeckStates>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xff990d35),
         title: RichText(
             text: TextSpan(
-                text: "Select an input method",
+                text: "MTG Deck Tuner",
                 style: TextStyle(
-                  fontFamily: 'Magic', color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold,
+                  color: Color(0xffFFF8E8), fontSize: 20.0,
                 )
             )
         ),
@@ -66,60 +67,79 @@ class _InputSelectionState extends State<InputSelectionScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            SizedBox(height: 125),
+            Text("Select an input method",
+              textAlign: TextAlign.center,
+              style: new TextStyle(
+                fontSize: 50.0,
+              ),
+            ),
+            SizedBox(height: 125),
             Expanded(
               flex: 1,
-              child: FlatButton(
-                color: Colors.orangeAccent,
-                onPressed: () {
-                  deckStates.clear(); // TODO: maybe move this to clear only when the deck's color identity changes?
-                  Navigator.pushNamed(context, '/mana');
-                },
-                child: RichText(
-                  text: TextSpan(
-                    text: "Manual Entry",
-                    style: TextStyle(
-                      fontFamily: 'Magic', color: Colors.black87,
-                      fontSize: 40.0, fontWeight: FontWeight.bold,
-                    )
-                  )
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: FlatButton(
+                  color: Color(0xff990d35),
+                  onPressed: () {
+                    deckStates.clear(); // TODO: maybe move this to clear only when the deck's color identity changes?
+                    Navigator.pushNamed(context, '/mana');
+                  },
+                  child: RichText(
+                      text: TextSpan(
+                          text: "Mana Cost Entry",
+                          style: TextStyle(
+                            color: Color(0xFFFFF8E8), fontSize: 30.0,
+                          )
+                      )
+                  ),
                 ),
               ),
             ),
+            //SizedBox(height: 10),
             Expanded(
               flex: 1,
-              child: FlatButton(
-                color: Colors.purpleAccent,
-                onPressed: () {
-                  deckStates.clear();
-                  Navigator.pushNamed(context, '/text');
-                },
-                child: RichText(
-                    text: TextSpan(
-                        text: "Deck Entry",
-                        style: TextStyle(
-                          fontFamily: 'Magic', color: Colors.black87, fontSize: 40.0, fontWeight: FontWeight.bold,
-                        )
-                    )
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: FlatButton(
+                  color: Color(0xff990d35),
+                  onPressed: () {
+                    deckStates.clear();
+                    Navigator.pushNamed(context, '/text');
+                  },
+                  child: RichText(
+                      text: TextSpan(
+                          text: "Deck List Entry",
+                          style: TextStyle(
+                            color: Color(0xFFFFF8E8), fontSize: 30.0,
+                          )
+                      )
+                  ),
                 ),
               ),
             ),
+            //SizedBox(height: 10),
             Expanded(
               flex: 1,
-              child: FlatButton(
-                color: Colors.yellowAccent,
-                onPressed: () {
-                  _askPermission(); // TODO: go to camera screen when permission is accepted
-                },
-                child: RichText(
-                    text: TextSpan(
-                        text: "Camera",
-                        style: TextStyle(
-                          fontFamily: 'Magic', color: Colors.black87, fontSize: 40.0, fontWeight: FontWeight.bold,
-                        )
-                    )
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: FlatButton(
+                  color: Color(0xff990d35),
+                  onPressed: () {
+                    _askPermission(); // TODO: go to camera screen when permission is accepted
+                  },
+                  child: RichText(
+                      text: TextSpan(
+                          text: "Camera Entry",
+                          style: TextStyle(
+                            color: Color(0xFFFFF8E8), fontSize: 30.0,
+                          )
+                      )
+                  ),
                 ),
               ),
             ),
+            SizedBox(height: 8),
           ]
       ),
     );

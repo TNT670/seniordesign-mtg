@@ -33,7 +33,7 @@ class ManaSelectionScreen extends StatelessWidget {
                 text: TextSpan(
                   text: "Choose your color identity",
                   style: TextStyle(
-                    fontFamily: 'Magic', color: Colors.black87, fontSize: 35.0, fontWeight: FontWeight.bold,
+                    color: Colors.black87, fontSize: 30.0,
                   )
                 )
               )
@@ -65,6 +65,7 @@ class ManaSelectionScreen extends StatelessWidget {
             Navigator.pushNamed(context, '/manual');
           }
         },
+        backgroundColor: Color(0xff990d35),
         label: Text('Next'),
         icon: Icon(Icons.arrow_forward),
         // backgroundColor: Colors.deepPurple

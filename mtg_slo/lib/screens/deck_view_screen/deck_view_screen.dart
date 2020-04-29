@@ -68,10 +68,8 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
           text: TextSpan(
             text: "Text Entry",
             style: TextStyle(
-              fontFamily: 'Magic',
-              color: Colors.white,
+              color: Color(0xffFFF8E8),
               fontSize: 25.0,
-              fontWeight: FontWeight.bold,
             )
           )
         ),
@@ -123,6 +121,7 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
         // deckStates.clear();
         Navigator.pushNamed(context, '/results');
       },
+      backgroundColor: Color(0xff990d35),
       label: Text('Next'),
       icon: Icon(Icons.arrow_forward),
     )

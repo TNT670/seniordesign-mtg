@@ -36,14 +36,12 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
     final deckStates = Provider.of<DeckStates>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xff990d35),
         title: RichText(
             text: TextSpan(
                 text: "Text Entry",
                 style: TextStyle(
-                  fontFamily: 'Magic',
-                  color: Colors.white,
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
+                  color: Color(0xffFFF8E8), fontSize: 20.0,
                 )
             )
         ),
@@ -53,11 +51,16 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
           padding: EdgeInsets.all(16.0),
           child: Column(
             children: <Widget> [
-              Text('Paste your deck in Magic Online Format'),
+              Text('Paste your deck in Magic Online Format',
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                  fontSize: 40.0,
+                ),),
               Expanded(
                 flex: 3,
                 child: !_loading ? Container(
                     child: TextField(
+                      textAlignVertical: TextAlignVertical.bottom,
                       autofocus: true,
                       focusNode: boxFocusNode,
                       keyboardType: TextInputType.multiline,
@@ -122,6 +125,7 @@ class _TextEntryScreenState extends State<TextEntryScreen> {
           Navigator.pushNamed(context, '/deck');
 
         },
+        backgroundColor: Color(0xff990d35),
         label: Text('Next'),
         icon: Icon(Icons.arrow_forward),
       )

@@ -40,10 +40,7 @@ class ResultsScreen extends StatelessWidget {
             text: TextSpan(
                 text: "Results",
                 style: TextStyle(
-                  fontFamily: 'Magic',
-                  color: Colors.white,
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
+                  color: Color(0xffFFF8E8), fontSize: 20.0,
                 )
             )
         ),
