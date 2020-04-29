@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtg_slo/screens/results_screen/results_row.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
@@ -9,6 +10,18 @@ import 'package:mtg_slo/global_states.dart';
 // land types
 
 class ResultsScreen extends StatelessWidget {
+
+  final _wubrg = ["W", "U", "B", "R", "G"];
+
+  List<ResultsRow> buildRows(List resultsList) {
+    List<ResultsRow> allResults = List<ResultsRow>();
+    for (int i=0; i<_wubrg.length; i++) {
+      if (resultsList[i] != 0)
+        allResults.add(ResultsRow(_wubrg[i], resultsList[i]));
+    }
+    return allResults;
+  }
+
   @override
   Widget build(BuildContext context) {
     final globalStates = Provider.of<GlobalStates>(context);
@@ -36,14 +49,8 @@ class ResultsScreen extends StatelessWidget {
         ),
       ),
       body: Column(
-          children: [
-            Text("Land Counts"),
-            Text("White: " + resultsList[0].toString()),
-            Text("Blue: " + resultsList[1].toString()),
-            Text("Black: " + resultsList[2].toString()),
-            Text("Red: " + resultsList[3].toString()),
-            Text("Green: " + resultsList[4].toString()),
-          ]
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: buildRows(resultsList),
         )
       );
 

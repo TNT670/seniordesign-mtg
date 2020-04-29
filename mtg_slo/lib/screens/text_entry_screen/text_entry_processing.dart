@@ -47,7 +47,8 @@ class TextEntryProcessing extends ChangeNotifier {
       card.setCardCount(cardNum);
       return card;
     } else {
-      throw Exception('Failed to load card');
+      await fetchCards(cardLink, cardNum);
+      // throw Exception('Failed to load card');
     }
   }
 }

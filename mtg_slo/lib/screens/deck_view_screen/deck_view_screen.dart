@@ -34,10 +34,12 @@ class _DeckViewScreenState extends State<DeckViewScreen> {
       }
     })*/
 
-    for (var i=0; i<deck.getCards.length; i++) {
-      widget._cardViews.add(CardView(deck.getCards[i]));
-      widget._existingCards.add(deck.getCards[i].getCardName);
-      widget._existingLinks.add(deck.getCards[i].getImagePath);
+    var noDupes = deck.getCards.toSet().toList();
+
+    for (var i=0; i<noDupes.length; i++) {
+      widget._cardViews.add(CardView(noDupes[i]));
+      widget._existingCards.add(noDupes[i].getCardName);
+      widget._existingLinks.add(noDupes[i].getImagePath);
       }
 
     //print(widget._existingCards);
